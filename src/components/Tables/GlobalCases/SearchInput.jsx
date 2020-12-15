@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BasicTextFields({ cases, setNewCases }) {
+export default function SearchInput({ cases, setNewCases }) {
   const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState("");
   const countries = cases;
@@ -22,10 +22,10 @@ export default function BasicTextFields({ cases, setNewCases }) {
 
   useEffect(() => {
     const results = countries.filter(country =>
-      country.Country.toLowerCase().includes(searchTerm)
+      country.country.toLowerCase().includes(searchTerm)
     );
     setNewCases(results);
-  }, [searchTerm]);
+  }, [countries, searchTerm, setNewCases]);
   
   return (
     <form className={classes.formContainer} noValidate autoComplete="off">

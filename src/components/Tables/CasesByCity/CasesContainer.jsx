@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CasesItem from './CasesItem';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import SearchInput from '../GlobalCases/SearchInput'
 import { List, Container } from '@material-ui/core';
 import { connect } from 'react-redux';
@@ -41,11 +41,9 @@ export function CasesContainer({ countries, title, newCases = [] }) {
     const classes = useStyles();
     return (
         <Container>
-            <SearchInput cases={allCases} setNewCases={setAllCases} />
-
+            <SearchInput cases={allCases} setNewCases={setCases} />
             <List className={classes.casesList}>
                 <h2 className={classes.title}>{title}</h2>
-                {console.log(cases)}
                 {cases.map((item, idx) =>
                 (<CasesItem cases={item.cases} country={item.country} key={idx} />
                 ))}

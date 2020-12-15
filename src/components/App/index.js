@@ -1,26 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Container } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { fetchData } from '../../redux/actions';
 import GlobalCases from '../Tables/GlobalCases/GlobalCases'
-
+import CasesContainer from '../Tables/CasesByCity/CasesContainer'
 
 import classes from './App.module.scss';
 
 function App({ byAllCases, byCountries, fetchData, loading }) {
-   const [state, setState] = useState({
-     globalCases: 'cases'
-   })
+  const [state, setState] = useState({
+    globalCases: 'cases',
+    casesSelected: 'Cases by country'
+  })
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  console.log(byAllCases, byCountries);
-
   return (
     <div className={classes.app}>
       {loading && <CircularProgress />}
-    <GlobalCases casesType={state.globalCases}/>
+      <main>
+        {console.log(byCountries)}
+        <GlobalCases casesType={state.globalCases} />
+        <CasesContainer title={state.casesSelected} countries={byCountries}/>
+        {/* <Container className='map__container'>
+          <Switcher setStat={setStat} />
+          <Map stat={stat} />
+        </Container> */}
+      </main>
 
       {/* {!!byCountries.length && byCountries.map((item) => <div>{item.country}</div>)} */}
     </div>
