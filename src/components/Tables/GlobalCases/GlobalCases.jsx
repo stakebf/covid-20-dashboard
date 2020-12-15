@@ -30,11 +30,11 @@ function GlobalCases({ byAllCases, byCountries, casesType }) {
 
   const classes = useStyles();
   const [globalCases, setGlobalCases] = useState([]);
-  console.log(byAllCases, byCountries, globalCases, 'byAllCases, byCountries');
 
   useEffect(() => {
     setGlobalCases(byAllCases[casesType]);
   }, [byAllCases, casesType])
+  
   return (
     <>
       <Card className={classes.root}>
