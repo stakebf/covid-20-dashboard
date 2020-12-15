@@ -1,4 +1,3 @@
-
 class WorldometrsService {
   _API_URL = 'https://corona.lmao.ninja/v3/covid-19';
 
@@ -39,6 +38,14 @@ class WorldometrsService {
   getInfoByCountriesArray(arrayCountries) {
     return this.getResource(`${this._API_URL}/countries/${arrayCountries.join(',')}`);
   }
+  
+  getFromJhucsseByAllCountry() {
+    return this.getResource(`${this._API_URL}/jhucsse`);
+  }
+  
+  getFromJhucsseByCountryUSA() {
+    return this.getResource(`${this._API_URL}/jhucsse/counties`);
+  }
 }
 
-export default WorldometrsService;
+export default new WorldometrsService();
