@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { fetchData } from '../../redux/actions';
 import GlobalCases from '../Tables/GlobalCases/GlobalCases'
 import CasesContainer from '../Tables/CasesByCity/CasesContainer'
-
+import Map from '../Tables/Map/MapContainer'
+import Switcher from '../Tables/Map/Switcher'
 import classes from './App.module.scss';
 
 function App({ byAllCases, byCountries, fetchData, loading }) {
@@ -12,6 +13,9 @@ function App({ byAllCases, byCountries, fetchData, loading }) {
     globalCases: 'cases',
     casesSelected: 'Cases by country'
   })
+
+  const [statisticField, setStatisticField] = useState('confirmed');
+
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -23,10 +27,10 @@ function App({ byAllCases, byCountries, fetchData, loading }) {
         {console.log(byCountries)}
         <GlobalCases casesType={state.globalCases} />
         <CasesContainer title={state.casesSelected} countries={byCountries}/>
-        {/* <Container className='map__container'>
-          <Switcher setStat={setStat} />
-          <Map stat={stat} />
-        </Container> */}
+        <Container className='map__container'>
+          <Switcher setStat={setStatisticField} />
+          <Map stat={statisticField} byAllCases={byAllCases} byCountries={byCountries} />
+        </Container>
       </main>
 
       {/* {!!byCountries.length && byCountries.map((item) => <div>{item.country}</div>)} */}

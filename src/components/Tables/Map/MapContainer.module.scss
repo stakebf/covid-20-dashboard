@@ -1,0 +1,16 @@
+.label__item {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+  }
+  
+  .info.legend {
+      display: flex;
+  }
+  
+  .label__color {
+    width: 30px;
+    height: 6px;
+    align-self: center;
+  }
+  

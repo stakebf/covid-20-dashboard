@@ -23,14 +23,10 @@ export function CasesContainer({ countries, title, newCases = [] }) {
     const [allCases, setAllCases] = useState(countries);
 
     useEffect(() => {
-        console.log(cases,countries,  'cases')
-
         setCases(countries);
     }, [countries])
 
     useEffect(() => {
-        console.log(cases, countries, 'cases2')
-
         if (cases.length === 0) {
 
             setAllCases(countries)

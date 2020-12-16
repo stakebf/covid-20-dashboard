@@ -31,7 +31,6 @@ export default function CasesItem({ cases, country, coordinates }) {
     return (
         <>
             <ListItem className={classes.casesItem} button onClick={() => {
-                console.log(coordinates)
                 // handleItemClick(coordinates)
             }}>
                 <ListItemText primary={country} className={classes.casesCountry} />
