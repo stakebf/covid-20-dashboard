@@ -21,17 +21,18 @@ const useStyles = makeStyles({
 
 });
 
-export default function CasesItem({ cases, country, coordinates }) {
+export default function CasesItem({ cases, country, coordinates, setLocation }) {
     const classes = useStyles();
-    // const handleItemClick = (coordinates) => {
-    //     console.log(coordinates)
-    //        return < Map location={ coordinates } />
-    // }
+    const handleItemClick = (coordinates) => {
+        console.log(coordinates)
+        setLocation(coordinates)
+        //    return < Map location={ coordinates } />
+    }
 
     return (
         <>
             <ListItem className={classes.casesItem} button onClick={() => {
-                // handleItemClick(coordinates)
+                handleItemClick(coordinates)
             }}>
                 <ListItemText primary={country} className={classes.casesCountry} />
                 <ListItemText primary={cases} className={classes.casesCount} />

@@ -15,6 +15,8 @@ function App({ byAllCases, byCountries, fetchData, loading }) {
   })
 
   const [statisticField, setStatisticField] = useState('confirmed');
+  const [location, setLocation] = useState([39.6745567899274, -20.190688951235135]);
+
 
   useEffect(() => {
     fetchData();
@@ -24,12 +26,12 @@ function App({ byAllCases, byCountries, fetchData, loading }) {
     <div className={classes.app}>
       {loading && <CircularProgress />}
       <main>
-        {console.log(byCountries)}
+        {console.log(byCountries, 'bBu')}
         <GlobalCases casesType={state.globalCases} />
-        <CasesContainer title={state.casesSelected} countries={byCountries}/>
+        <CasesContainer title={state.casesSelected} countries={byCountries} setLocation={setLocation}/>
         <Container className='map__container'>
           <Switcher setStat={setStatisticField} />
-          <Map stat={statisticField} byAllCases={byAllCases} byCountries={byCountries} />
+          <Map stat={statisticField} byAllCases={byAllCases} byCountries={byCountries} location={location}/>
         </Container>
       </main>
 

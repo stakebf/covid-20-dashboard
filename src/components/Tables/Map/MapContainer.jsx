@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, useMapEvents, Marker, Popup, CircleMarker } from 'react-leaflet'
+import React, { useEffect, useState, useRef } from 'react';
+import { MapContainer, TileLayer, useMapEvents, Marker, Popup, CircleMarker, useMap, GeoJSON } from 'react-leaflet'
 import { makeStyles } from '@material-ui/core/styles';
 // import { byCountryAll, byCountryUsa } from '../../byCountry';
 import Legend from './Legend'
@@ -66,53 +66,67 @@ const getColor = num => {
 //     )
 // }
 
-function MyComponent() {
+function MyComponent(mapContainer) {
     const map = useMapEvents({
         zoomlevelschange(e) {
             console.log(e, 'MAP E')
-        }
+        },
+        click(e) {
+            map.locate()
+        },
+        update(e) {
+            console.log(e, 'update')
+        },
+        baselayerchange(e){
+            console.log(e, 'baselayerchange')
+
+        }, 
+        load(e) {
+            console.log(e, 'load')
+        },
+        // locationfound(e) {
+        //     console.log(e, 'LOCATION E', e.latlng)
+        //     map.flyTo([13.87992, 45.9791], map.getZoom())
+        // }
+
     })
     return null
 }
 
-function FlyToLocation(position) {
-    const map = useMapEvents({
-        locationfound(e) {
-            map.flyTo(position, map.getZoom())
-        }
-    })
-    return position === null ? null : (
-        <Marker position={position}>
-            <Popup>You are here</Popup>
-        </Marker>
-    )
-}
+function FlyToLocation({position}) {
+    const map = useMap();
+    console.log(position, 'position', map)
+    map.flyTo(position, 12)
 
-export default function Map({ stat, byAllCases, byCountries }) {
+    // const map = useMapEvents({
+    //     locationfound(e) {
+    //         console.log(e, 'LOCATION E', e.latlng)
+    //         map.flyTo(e.latlng, map.getZoom())
+    //     }
+    // })
+    return null;
+}
+// const Map = React.forwardRef((props, ref) => {
+//     return <MapElement  {...props} ref={ref}/>
+// })
+const Map = React.forwardRef(({ stat, byAllCases, byCountries, location }, ref) => {
     const [cases, setAllCases] = useState([]);
     const [casesUSA, setUSACases] = useState([]);
-    const [location, setLocation] = useState([39.6745567899274, -20.190688951235135]);
+    const [newLocation, setLocation] = useState(location);
     const [zoom, setZoom] = useState(1)
-
-    // const [currentPosition, setPosition] = useState([51.505, -0.09])
+    const mapContainer = useRef(ref);
 
     useEffect(() => {
         setAllCases(byCountries);
         setUSACases(byCountries)
-        console.log(byAllCases, byCountries, 'byAllCases, byCountries')
     }, [byCountries])
 
-    // useEffect(() => {
-    //     console.log(newLocation)
+    useEffect(() => {
+        setLocation(location)
+    }, [location, newLocation])
 
-    // }, [newLocation])
-    // useEffect(() => {
-    //     console.log(newLocation)
-
-    // }, [])
 
     const classes = useStyles();
-    // const center = [51.505, -0.09]
     const fillOptions = (color) => {
         return {
             fillColor: color,
@@ -138,15 +152,16 @@ export default function Map({ stat, byAllCases, byCountries }) {
 
 
     return (
-        < MapContainer className={classes.mapContainer} center={location} minZoom={1} zoom={1.5} scrollWheelZoom={true}>
-            <MyComponent />
+        < MapContainer className={classes.mapContainer} center={newLocation} minZoom={1} zoom={1.5} scrollWheelZoom={true}>
+            <MyComponent/>
+            <FlyToLocation position={newLocation} />
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             />
             {cases.map((item, idx) => {
                 if (item.provinces !== null) {
-                   return item.provinces.map((provence) => renderProvinceMarker(provence))
+                    return item.provinces.map((provence) => renderProvinceMarker(provence))
                 }
                 const statType = stat === 'confirmed' ? 'cases' : stat;
                 const center = [item.countryInfo.lat, item.countryInfo.long];
@@ -164,5 +179,8 @@ export default function Map({ stat, byAllCases, byCountries }) {
             <Legend />
         </MapContainer >
     )
-
 }
+)
+
+// }
+export default Map;
