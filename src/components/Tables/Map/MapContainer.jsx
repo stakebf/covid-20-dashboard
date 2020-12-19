@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { MapContainer, TileLayer, useMapEvents, Marker, Popup, CircleMarker, useMap, GeoJSON } from 'react-leaflet'
+import React, { useEffect, useState } from 'react';
+import { MapContainer, TileLayer, useMapEvents, Popup, CircleMarker, useMap } from 'react-leaflet'
 import { makeStyles } from '@material-ui/core/styles';
-// import { byCountryAll, byCountryUsa } from '../../byCountry';
 import Legend from './Legend'
+import MapProvider from './MapProvider'
 import 'leaflet/dist/leaflet.css'
 import './map.css'
 // import classes from './MapContainer.module.scss';
@@ -37,52 +37,16 @@ const getColor = num => {
                             : "#4ddb0b";
 }
 
-
-// function LocationMarker() {
-//     const [position, setPosition] = useState(null)
-//     const map = useMapEvents({
-//         click(e) {
-//             console.log(e);
-//             map.locate()
-//         },
-//         locationfound(e) {
-//             console.log(e)
-//             setPosition(e.latlng)
-//             map.flyTo(e.latlng, map.getZoom())
-//         },
-
-//         zoomlevelschange(e) {
-
-//         }
-
-//     })
-
-
-
-//     return position === null ? null : (
-//         <Marker position={position}>
-//             <Popup>You are here</Popup>
-//         </Marker>
-//     )
-// }
-
-function MyComponent(mapContainer) {
+function MapEventHandler({ setZoom, setIsNewLocation }) {
     const map = useMapEvents({
         zoomlevelschange(e) {
-            console.log(e, 'MAP E')
+            setIsNewLocation(false)
+        },
+        zoomend(e) {
+            setZoom(map.getZoom())
         },
         click(e) {
             map.locate()
-        },
-        update(e) {
-            console.log(e, 'update')
-        },
-        baselayerchange(e){
-            console.log(e, 'baselayerchange')
-
-        }, 
-        load(e) {
-            console.log(e, 'load')
         },
         // locationfound(e) {
         //     console.log(e, 'LOCATION E', e.latlng)
@@ -93,37 +57,24 @@ function MyComponent(mapContainer) {
     return null
 }
 
-function FlyToLocation({position}) {
-    const map = useMap();
-    console.log(position, 'position', map)
-    map.flyTo(position, 12)
 
-    // const map = useMapEvents({
-    //     locationfound(e) {
-    //         console.log(e, 'LOCATION E', e.latlng)
-    //         map.flyTo(e.latlng, map.getZoom())
-    //     }
-    // })
-    return null;
-}
-// const Map = React.forwardRef((props, ref) => {
-//     return <MapElement  {...props} ref={ref}/>
-// })
-const Map = React.forwardRef(({ stat, byAllCases, byCountries, location }, ref) => {
+
+function Map({ stat, byCountries, location, pickedCountry }) {
     const [cases, setAllCases] = useState([]);
-    const [casesUSA, setUSACases] = useState([]);
     const [newLocation, setLocation] = useState(location);
-    const [zoom, setZoom] = useState(1)
-    const mapContainer = useRef(ref);
+    const [country, setPickedCountry] = useState(pickedCountry);
+    const [zoom, setZoom] = useState(1.5);
+    const [isNewLocation, setIsNewLocation] = useState(false);
 
     useEffect(() => {
         setAllCases(byCountries);
-        setUSACases(byCountries)
     }, [byCountries])
 
     useEffect(() => {
         setLocation(location)
-    }, [location, newLocation])
+        setPickedCountry(pickedCountry)
+        setIsNewLocation(true)
+    }, [location, newLocation, country, pickedCountry])
 
 
     const classes = useStyles();
@@ -138,9 +89,9 @@ const Map = React.forwardRef(({ stat, byAllCases, byCountries, location }, ref) 
 
     function renderProvinceMarker(item) {
         const center = [item.coordinates.latitude, item.coordinates.longitude];
-        const radius = item.stats[stat] / 100000;
+        const radius = (item.stats[stat] / 10000000) * zoom;
         const backColor = getColor(item.stats[stat]);
-        return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={radius}>
+        return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={1*zoom}>
             <Popup>
                 {stat}:{item.stats.stat}
                 <br />
@@ -150,11 +101,34 @@ const Map = React.forwardRef(({ stat, byAllCases, byCountries, location }, ref) 
     }
 
 
+    function renderCountryMarker(item, stat, idx, radius) {
+        const statType = stat === 'confirmed' ? 'cases' : stat.toString();
+        const center = [item.countryInfo.lat, item.countryInfo.long];
+        // const radius = item[statType] / 10000000;
+        const backColor = getColor(item[statType]);
+        console.log(zoom)
+        return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={radius ? radius : 1 * zoom} key={idx ? idx : item[statType]}>
+            <Popup>
+                {statType}:{item[statType]}
+                <br />
+                {item.country}
+            </Popup>
+        </CircleMarker>
+    }
+
+    function FlyToLocation({ position, item, stat }) {
+        const map = useMap();
+        map.flyTo([item.countryInfo.lat, item.countryInfo.long], 5)
+        return renderCountryMarker(item, stat, null, 10)
+    }
+
 
     return (
-        < MapContainer className={classes.mapContainer} center={newLocation} minZoom={1} zoom={1.5} scrollWheelZoom={true}>
-            <MyComponent/>
-            <FlyToLocation position={newLocation} />
+        < MapContainer className={classes.mapContainer} center={newLocation} minZoom={1} zoom={zoom} scrollWheelZoom={true}>
+            <MapEventHandler setZoom={setZoom} setIsNewLocation={setIsNewLocation} />
+            {isNewLocation ? <FlyToLocation position={newLocation} item={country} stat={stat} /> : null}
+            <MapProvider />
+
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -163,24 +137,12 @@ const Map = React.forwardRef(({ stat, byAllCases, byCountries, location }, ref) 
                 if (item.provinces !== null) {
                     return item.provinces.map((provence) => renderProvinceMarker(provence))
                 }
-                const statType = stat === 'confirmed' ? 'cases' : stat;
-                const center = [item.countryInfo.lat, item.countryInfo.long];
-                const radius = item[statType] / 1000000;
-                const backColor = getColor(item[statType]);
-                return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={radius} key={idx}>
-                    <Popup>
-                        {statType}:{item[statType]}
-                        <br />
-                        {item.country}
-                    </Popup>
-                </CircleMarker>
+                return renderCountryMarker(item, stat, idx)
 
             })}
             <Legend />
         </MapContainer >
     )
 }
-)
 
-// }
-export default Map;
+export default React.memo(Map);

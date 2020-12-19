@@ -21,12 +21,11 @@ const useStyles = makeStyles({
 
 });
 
-export default function CasesItem({ cases, country, coordinates, setLocation }) {
+export default function CasesItem({ item, cases, country, coordinates, setLocation, setCountry }) {
     const classes = useStyles();
     const handleItemClick = (coordinates) => {
-        console.log(coordinates)
         setLocation(coordinates)
-        //    return < Map location={ coordinates } />
+        setCountry(item)
     }
 
     return (

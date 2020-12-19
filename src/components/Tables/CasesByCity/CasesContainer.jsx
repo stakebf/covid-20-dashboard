@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     },
 });
 
-export function CasesContainer({ countries, title, newCases = [], setLocation }) {
+export function CasesContainer({ countries, title, newCases = [], setLocation, setCountry }) {
     const [cases, setCases] = useState(newCases);
     const [allCases, setAllCases] = useState(countries);
 
@@ -41,7 +41,7 @@ export function CasesContainer({ countries, title, newCases = [], setLocation })
             <List className={classes.casesList}>
                 <h2 className={classes.title}>{title}</h2>
                 {cases.map((item, idx) =>
-                (<CasesItem cases={item.cases} country={item.country} key={idx} setLocation={setLocation} coordinates={[item.countryInfo.lat, item.countryInfo.long]} />
+                (<CasesItem item={item} cases={item.cases} country={item.country} key={idx} setCountry={setCountry} setLocation={setLocation} coordinates={[item.countryInfo.lat, item.countryInfo.long]} />
                 )
                 )}
             </List>

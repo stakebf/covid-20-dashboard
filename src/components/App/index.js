@@ -6,16 +6,50 @@ import GlobalCases from '../Tables/GlobalCases/GlobalCases'
 import CasesContainer from '../Tables/CasesByCity/CasesContainer'
 import Map from '../Tables/Map/MapContainer'
 import Switcher from '../Tables/Map/Switcher'
+import ScrollableTabsButtonAuto from '../Tables/Map/TabPanel'
 import classes from './App.module.scss';
 
 function App({ byAllCases, byCountries, fetchData, loading }) {
-  const [state, setState] = useState({
+  const [parameters, setParameters] = useState({
     globalCases: 'cases',
     casesSelected: 'Cases by country'
   })
 
   const [statisticField, setStatisticField] = useState('confirmed');
-  const [location, setLocation] = useState([39.6745567899274, -20.190688951235135]);
+  const [location, setLocation] = useState([53.90033950661763, 27.562463259670654]);
+  const [pickedCountry, setCountry] = useState({
+    active: 21024,
+    activePerOneMillion: 2225.26,
+    cases: 169648,
+    casesPerOneMillion: 17956,
+    continent: "Europe",
+    country: "Belarus",
+    countryInfo: {
+      flag: "https://disease.sh/assets/img/flags/by.png",
+      iso2: "BY",
+      iso3: "BLR",
+      lat: 53,
+      long: 28,
+      _id: 112,
+    },
+    critical: 0,
+    criticalPerOneMillion: 0,
+    deaths: 1308,
+    deathsPerOneMillion: 138,
+    oneCasePerPeople: 56,
+    oneDeathPerPeople: 7223,
+    oneTestPerPeople: 3,
+    population: 9447876,
+    provinces: null,
+    recovered: 147316,
+    recoveredPerOneMillion: 15592.5,
+    tests: 3718238,
+    testsPerOneMillion: 393553,
+    todayCases: 1917,
+    todayDeaths: 9,
+    todayRecovered: 1919,
+    updated: 1608296352291,
+  });
 
 
   useEffect(() => {
@@ -26,12 +60,13 @@ function App({ byAllCases, byCountries, fetchData, loading }) {
     <div className={classes.app}>
       {loading && <CircularProgress />}
       <main>
-        {console.log(byCountries, 'bBu')}
-        <GlobalCases casesType={state.globalCases} />
-        <CasesContainer title={state.casesSelected} countries={byCountries} setLocation={setLocation}/>
+        <GlobalCases casesType={parameters.globalCases} />
+        <CasesContainer title={parameters.casesSelected} countries={byCountries} setCountry={setCountry} setLocation={setLocation} />
         <Container className='map__container'>
-          <Switcher setStat={setStatisticField} />
-          <Map stat={statisticField} byAllCases={byAllCases} byCountries={byCountries} location={location}/>
+        <ScrollableTabsButtonAuto country={pickedCountry} setStatisticField={setStatisticField} statisticField={statisticField}/>
+
+          {/* <Switcher setStat={setStatisticField} /> */}
+          <Map stat={statisticField} byAllCases={byAllCases} byCountries={byCountries} location={location} pickedCountry={pickedCountry} />
         </Container>
       </main>
 
