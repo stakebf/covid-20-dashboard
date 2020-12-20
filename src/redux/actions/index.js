@@ -23,7 +23,7 @@ export const fetchData = () => {
         const countryCoordinates = countriesCoordinates.find((countryInfo) => item.country === countryInfo.name);
         
         if (countryCoordinates) {
-          console.log(countryCoordinates);
+          // console.log(countryCoordinates);
           item.countryInfo.lat = countryCoordinates.latitude;
           item.countryInfo.long = countryCoordinates.longitude;
         }
