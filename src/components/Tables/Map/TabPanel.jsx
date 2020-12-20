@@ -4,35 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import './map.scss'
 
-// function TabPanel(props) {
-//     const { children, value, index, ...other } = props;
-
-//     return (
-//         <div
-//             role="tabpanel"
-//             hidden={value !== index}
-//             id={`scrollable-auto-tabpanel-${index}`}
-//             aria-labelledby={`scrollable-auto-tab-${index}`}
-//             {...other}
-//         >
-//             {value === index && (
-//                 <Box p={3}>
-//                     <Typography>{children}</Typography>
-//                 </Box>
-//             )}
-//         </div>
-//     );
-// }
-
-// TabPanel.propTypes = {
-//     children: PropTypes.node,
-//     index: PropTypes.any.isRequired,
-//     value: PropTypes.any.isRequired,
-// };
 
 function a11yProps(index) {
     return {
@@ -62,23 +35,28 @@ const useStyles = makeStyles((theme) => ({
 
     selected: {
         color: ' #fefeff',
-        backgroundColor: ' #153468',  
+        backgroundColor: ' #153468',
     },
 
     '&$selected': {
         color: ' #fefeff',
-        backgroundColor: ' #153468',  
+        backgroundColor: ' #153468',
     }
 
 }));
 
-export default function MapTabContainer({ statisticField, setStatisticField }) {
+export default function MapTabContainer({ statisticField, setStatisticField, tabValues, type }) {
     const classes = useStyles();
-    const [value, setValue] = React.useState(statisticField);
+    const [value, setValue] = React.useState(statisticField[type]);
 
     const handleChange = (event, newValue) => {
+        console.log(newValue, 'newValue')
         setValue(newValue);
-        setStatisticField(newValue)
+        setStatisticField(
+            {
+                ...statisticField,
+                [type]: newValue
+            })
     };
 
     return (
@@ -90,15 +68,8 @@ export default function MapTabContainer({ statisticField, setStatisticField }) {
                     variant="scrollable"
                     scrollButtons="auto"
                     aria-label="scrollable auto tabs example"
-                    // className={{selected: classes.selected}}
                 >
-                    <Tab label="confirmed" value="confirmed" {...a11yProps(0)} />
-                    <Tab label="deaths" value="deaths" {...a11yProps(1)} />
-                    <Tab label="recovered" value="recovered" {...a11yProps(2)} />
-                    {/* <Tab label="Item Four" {...a11yProps(3)} />
-                    <Tab label="Item Five" {...a11yProps(4)} />
-                    <Tab label="Item Six" {...a11yProps(5)} />
-                    <Tab label="Item Seven" {...a11yProps(6)} /> */}
+                    {tabValues.map((tab, idx) => <Tab label={tab} value={tab} {...a11yProps(idx)} />)}
                 </Tabs>
             </AppBar>
         </div>

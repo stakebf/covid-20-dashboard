@@ -15,7 +15,11 @@ function App({ byAllCases, byCountries, fetchData, loading }) {
     casesSelected: 'Cases by country'
   })
 
-  const [statisticField, setStatisticField] = useState('confirmed');
+  const [statisticField, setStatisticField] = useState({
+    category: 'confirmed',
+    timePeriod: 'total'
+  });
+
   const [location, setLocation] = useState([53.90033950661763, 27.562463259670654]);
   const [pickedCountry, setCountry] = useState(null)
   // useState({
@@ -51,7 +55,8 @@ function App({ byAllCases, byCountries, fetchData, loading }) {
   //   todayRecovered: 1919,
   //   updated: 1608296352291,
   // });
-
+  const commonCaregories = ['confirmed', 'deaths', 'recovered'];
+  const timeCategories = ['total', 'today', 'total/100', 'today/100'];
 
   useEffect(() => {
     fetchData();
@@ -64,7 +69,8 @@ function App({ byAllCases, byCountries, fetchData, loading }) {
         <GlobalCases casesType={parameters.globalCases} />
         <CasesContainer title={parameters.casesSelected} countries={byCountries} setCountry={setCountry} setLocation={setLocation} />
         <Container className='map__container'>
-        <MapTabContainer country={pickedCountry} setStatisticField={setStatisticField} statisticField={statisticField}/>
+          <MapTabContainer type={'category'} country={pickedCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={commonCaregories} />
+          <MapTabContainer type ={'timePeriod'} country={pickedCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={timeCategories} />
 
           {/* <Switcher setStat={setStatisticField} /> */}
           <Map stat={statisticField} byAllCases={byAllCases} byCountries={byCountries} location={location} pickedCountry={pickedCountry} />
