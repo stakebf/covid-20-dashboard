@@ -5,6 +5,7 @@ import {
 } from './actionTypes';
 import { getProvinceMap } from '../../helpers/getProvinceMap';
 import WorldometrsService from '../../services/WorldometrsService';
+import { countriesCoordinates } from '../../models/countriesCoordinates';
 
 export const fetchData = () => {
   return async (dispatch) => {
@@ -15,12 +16,21 @@ export const fetchData = () => {
       const dataByCountryUSA = await WorldometrsService.getFromJhucsseByCountryUSA();
       const dataByCountries = await WorldometrsService.getAllCountriesInfo();
       const dataByAllCases = await WorldometrsService.getAllCases();
+      console.log(dataByCountryAll, dataByCountries);
 
       const data = dataByCountries.map((item) => {
         const provinces = dataByCountryAll.filter(({ country, province }) => (item.country === country) && province);
-    
+        const countryCoordinates = countriesCoordinates.find((countryInfo) => item.country === countryInfo.name);
+        
+        if (countryCoordinates) {
+          console.log(countryCoordinates);
+          item.countryInfo.lat = countryCoordinates.latitude;
+          item.countryInfo.long = countryCoordinates.longitude;
+        }
+        
         if (Object.keys(provinces).length) {
           item.provinces = getProvinceMap(provinces);
+          
         } else {
           item.provinces = null;
         }
