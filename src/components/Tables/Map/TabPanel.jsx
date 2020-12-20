@@ -6,6 +6,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import './map.scss'
 
 // function TabPanel(props) {
 //     const { children, value, index, ...other } = props;
@@ -45,10 +46,33 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         width: '100%',
         backgroundColor: theme.palette.background.paper,
+        '&$selected': {
+            color: ' #fefeff',
+            backgroundColor: ' #153468',
+        }
     },
+
+    tab: {
+        color: 'red',
+        '&::selection': {
+            color: ' #fefeff',
+            backgroundColor: ' #153468',
+        }
+    },
+
+    selected: {
+        color: ' #fefeff',
+        backgroundColor: ' #153468',  
+    },
+
+    '&$selected': {
+        color: ' #fefeff',
+        backgroundColor: ' #153468',  
+    }
+
 }));
 
-export default function ScrollableTabsButtonAuto({ statisticField, setStatisticField }) {
+export default function MapTabContainer({ statisticField, setStatisticField }) {
     const classes = useStyles();
     const [value, setValue] = React.useState(statisticField);
 
@@ -63,11 +87,10 @@ export default function ScrollableTabsButtonAuto({ statisticField, setStatisticF
                 <Tabs
                     value={value}
                     onChange={handleChange}
-                    indicatorColor="primary"
-                    textColor="primary"
                     variant="scrollable"
                     scrollButtons="auto"
                     aria-label="scrollable auto tabs example"
+                    // className={{selected: classes.selected}}
                 >
                     <Tab label="confirmed" value="confirmed" {...a11yProps(0)} />
                     <Tab label="deaths" value="deaths" {...a11yProps(1)} />

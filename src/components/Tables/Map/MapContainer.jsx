@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Legend from './Legend'
 import MapProvider from './MapProvider'
 import 'leaflet/dist/leaflet.css'
-import './map.css'
+import './map.scss'
 // import classes from './MapContainer.module.scss';
 
 
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
         margin: '0 auto',
         marginBottom: '50px',
         height: '80vh',
-        width: '80vw'
+        width: '100%'
     },
     title: {
         fontSize: 14,
@@ -73,8 +73,12 @@ function Map({ stat, byCountries, location, pickedCountry }) {
     useEffect(() => {
         setLocation(location)
         setPickedCountry(pickedCountry)
-        setIsNewLocation(true)
     }, [location, newLocation, country, pickedCountry])
+
+
+    useEffect(() => {
+        setIsNewLocation(true)
+    }, [pickedCountry])
 
 
     const classes = useStyles();
@@ -91,7 +95,7 @@ function Map({ stat, byCountries, location, pickedCountry }) {
         const center = [item.coordinates.latitude, item.coordinates.longitude];
         const radius = (item.stats[stat] / 10000000) * zoom;
         const backColor = getColor(item.stats[stat]);
-        return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={1*zoom}>
+        return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={1 * zoom}>
             <Popup>
                 {stat}:{item.stats.stat}
                 <br />
@@ -126,7 +130,8 @@ function Map({ stat, byCountries, location, pickedCountry }) {
     return (
         < MapContainer className={classes.mapContainer} center={newLocation} minZoom={1} zoom={zoom} scrollWheelZoom={true}>
             <MapEventHandler setZoom={setZoom} setIsNewLocation={setIsNewLocation} />
-            {isNewLocation ? <FlyToLocation position={newLocation} item={country} stat={stat} /> : null}
+            {console.log(isNewLocation, 'isNewLocation')}
+            {country !== null && isNewLocation ? <FlyToLocation position={newLocation} item={country} stat={stat} /> : null}
             <MapProvider />
 
             <TileLayer
