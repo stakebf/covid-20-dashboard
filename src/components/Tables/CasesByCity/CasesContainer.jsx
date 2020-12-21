@@ -89,7 +89,7 @@ export function CasesContainer({ countries, title, newCases = [], setLocation, s
                 {sortingValue.type === 'ascending' ? <KeyboardArrowDownIcon onClick={() => sortDown('cases')} /> : <KeyboardArrowUpIcon onClick={() => sortUp('cases')} />}
                
                 {cases.map((item, idx) =>
-                (<CasesItem item={item} cases={item.cases} country={item.country} key={idx} setCountry={setCountry} setLocation={setLocation} coordinates={[item.countryInfo.lat, item.countryInfo.long]} />
+                (<CasesItem item={item} cases={item.cases} country={item.country} key={`${idx}_${item.country}`} setCountry={setCountry} setLocation={setLocation} coordinates={[item.countryInfo.lat, item.countryInfo.long]} />
                 )
                 )}
             </List>

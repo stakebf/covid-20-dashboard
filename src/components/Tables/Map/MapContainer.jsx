@@ -9,6 +9,7 @@ import './map.scss'
 import { Layer } from 'leaflet';
 // import classes from './MapContainer.module.scss';
 
+let index = 0;
 
 const useStyles = makeStyles({
     mapContainer: {
@@ -124,6 +125,11 @@ function Map({ stat, byCountries, location, pickedCountry }) {
         const { category, timePeriod } = statictic;
         const center = [item.coordinates.latitude, item.coordinates.longitude];
         const backColor = getColor(item.stats[category]);
+
+        //     let staticticValue = getStaticticsValue(item);
+        //     const radius = (staticticValue / 10000000) * zoom;
+        // //  console.log(staticticValue, item, 'DF;LBNJ;FLSBNF')
+        //     const backColor = getColor(staticticValue);
         return <CircleMarker
             eventHandlers={{
                 mouseover: (e) => {
@@ -133,9 +139,12 @@ function Map({ stat, byCountries, location, pickedCountry }) {
                     e.target.closePopup();
                 }
             }}
-            center={center} 
-            pathOptions={fillOptions(backColor)} 
-            radius={1 * zoom}>
+            center={center}
+            pathOptions={fillOptions(backColor)}
+            radius={1 * zoom}
+            key={`${item.coordinates.latitude}_${++index}`}
+        >
+
             <Popup>
                 {`${category} ${timePeriod}`}:{item.stats[category]}
                 <br />
@@ -158,7 +167,7 @@ function Map({ stat, byCountries, location, pickedCountry }) {
                 mouseout: (e) => {
                     e.target.closePopup();
                 }
-            }} center={center} pathOptions={fillOptions(backColor)} radius={radius ? radius : 1 * zoom} key={idx ? idx : staticticValue}>
+            }} center={center} pathOptions={fillOptions(backColor)} radius={radius ? radius : 1 * zoom} key={++index}>
             <Popup>
                 {`${category} ${timePeriod}`}:{staticticValue}
                 <br />

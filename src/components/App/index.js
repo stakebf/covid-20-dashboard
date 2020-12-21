@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { CircularProgress, Container } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { fetchData } from '../../redux/actions';
-import GlobalCases from '../Tables/GlobalCases/GlobalCases'
-import CasesContainer from '../Tables/CasesByCity/CasesContainer'
-import Map from '../Tables/Map/MapContainer'
-import Switcher from '../Tables/Map/Switcher'
-import MapTabContainer from '../Tables/Map/TabPanel'
+import GlobalCases from '../Tables/GlobalCases/GlobalCases';
+import CasesContainer from '../Tables/CasesByCity/CasesContainer';
+import Map from '../Tables/Map/MapContainer';
+// import Switcher from '../Tables/Map/Switcher'
+// import MapTabContainer from '../Tables/Map/TabPanel'
+import GroupedTabs from '../Tabs';
+import AllKindsOfCases from '../Tables/AllKindsOfCases';
 import classes from './App.module.scss';
 
 function App({ byAllCases, byCountries, fetchData, loading }) {
@@ -64,20 +66,18 @@ function App({ byAllCases, byCountries, fetchData, loading }) {
 
   return (
     <div className={classes.app}>
-      {loading && <CircularProgress />}
+      {loading ? <CircularProgress /> : <AllKindsOfCases />}
       <main className={classes.main__container}>
         <GlobalCases casesType={parameters.globalCases} />
         <CasesContainer title={parameters.casesSelected} countries={byCountries} setCountry={setCountry} setLocation={setLocation} />
         <Container className='map__container'>
-          <MapTabContainer type={'category'} country={pickedCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={commonCaregories} />
-          <MapTabContainer type ={'timePeriod'} country={pickedCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={timeCategories} />
+          <GroupedTabs type={'category'} country={pickedCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={commonCaregories} />
+          <GroupedTabs type ={'timePeriod'} country={pickedCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={timeCategories} />
 
           {/* <Switcher setStat={setStatisticField} /> */}
           <Map stat={statisticField} byAllCases={byAllCases} byCountries={byCountries} location={location} pickedCountry={pickedCountry} />
         </Container>
       </main>
-
-      {/* {!!byCountries.length && byCountries.map((item) => <div>{item.country}</div>)} */}
     </div>
   );
 }
