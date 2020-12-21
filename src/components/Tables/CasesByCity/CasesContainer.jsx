@@ -41,7 +41,7 @@ export function CasesContainer({ countries, title, newCases = [], setLocation, s
             <List className={classes.casesList}>
                 <h2 className={classes.title}>{title}</h2>
                 {cases.map((item, idx) =>
-                (<CasesItem item={item} cases={item.cases} country={item.country} key={idx} setCountry={setCountry} setLocation={setLocation} coordinates={[item.countryInfo.lat, item.countryInfo.long]} />
+                (<CasesItem item={item} cases={item.cases} country={item.country} key={`${idx}_${item.country}`} setCountry={setCountry} setLocation={setLocation} coordinates={[item.countryInfo.lat, item.countryInfo.long]} />
                 )
                 )}
             </List>
