@@ -74,7 +74,7 @@ function Map({ stat, byCountries, location, pickedCountry }) {
     const [zoom, setZoom] = useState(1.5);
     const [isNewLocation, setIsNewLocation] = useState(false);
     const [statictic, setStatistic] = useState(stat)
-    const marker = useRef(null);
+
     useEffect(() => {
         setAllCases(byCountries);
     }, [byCountries])
@@ -82,8 +82,6 @@ function Map({ stat, byCountries, location, pickedCountry }) {
     useEffect(() => {
         setLocation(location)
         setPickedCountry(pickedCountry)
-        console.log(marker, "';V;F'S'")
-
     }, [location, newLocation, country, pickedCountry])
 
 
@@ -93,7 +91,6 @@ function Map({ stat, byCountries, location, pickedCountry }) {
 
     useEffect(() => {
         setStatistic(stat)
-        // console.log(stat, statictic, 'STAT STATISTIC')
     }, [stat])
 
     const classes = useStyles();
@@ -115,15 +112,9 @@ function Map({ stat, byCountries, location, pickedCountry }) {
         }
     }
 
-    // marker.on('focus', (e) => {
-    //     console.log(marker, "FOCUS")
-
-    // })
     function getStaticticsValue(item) {
         const { category, timePeriod } = statictic;
         const statType = category === 'confirmed' ? 'cases' : category.toString();
-        // console.log(`today${statType.charAt(0).toUpperCase() + statType.slice(1)}`, item, 'INTO GETsTA' )
-
         let staticticValue = timePeriod.includes('today') ? item[`today${statType.charAt(0).toUpperCase() + statType.slice(1)}`] : item[statType];
         if (timePeriod.includes('100')) staticticValue = getStatistics(staticticValue, item.population);
         return staticticValue;
@@ -132,8 +123,6 @@ function Map({ stat, byCountries, location, pickedCountry }) {
     function renderProvinceMarker(item, country) {
         const { category, timePeriod } = statictic;
         const center = [item.coordinates.latitude, item.coordinates.longitude];
-        // let staticticValue = getStaticticsValue(item);
-        // const radius = (item.stats[category] / 10000000) * zoom;
         const backColor = getColor(item.stats[category]);
         return <CircleMarker
             eventHandlers={{
@@ -144,7 +133,9 @@ function Map({ stat, byCountries, location, pickedCountry }) {
                     e.target.closePopup();
                 }
             }}
-            ref={marker} center={center} pathOptions={fillOptions(backColor)} radius={1 * zoom}>
+            center={center} 
+            pathOptions={fillOptions(backColor)} 
+            radius={1 * zoom}>
             <Popup>
                 {`${category} ${timePeriod}`}:{item.stats[category]}
                 <br />
@@ -203,7 +194,7 @@ function Map({ stat, byCountries, location, pickedCountry }) {
                     return renderCountryMarker(item, stat, idx)
 
                 })}
-                <Legend onClick={() => console.log('LEGEND CLICKED')} />
+                <Legend />
             </MapContainer >
         </>
 

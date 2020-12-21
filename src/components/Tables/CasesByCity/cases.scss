@@ -1,0 +1,12 @@
+.cases {
+&__list {
+    max-width: 275;
+    background-color: beige;
+    max-height: 85vh;
+    overflow-y: scroll;
+}
+&__title {
+    font-size: 18px;
+    text-align: center;
+}
+}
