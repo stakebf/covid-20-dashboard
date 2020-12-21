@@ -66,6 +66,7 @@ export const fetchDataSuccess = (data, dataByAllCases) => {
 }
 
 export const fetchDataError = (e) => {
+  console.log(e);
   return {
     type: FETCH_DATA_ERROR,
     payload: e

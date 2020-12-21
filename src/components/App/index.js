@@ -7,6 +7,7 @@ import CasesContainer from '../Tables/CasesByCity/CasesContainer'
 import Map from '../Tables/Map/MapContainer'
 import Switcher from '../Tables/Map/Switcher'
 import MapTabContainer from '../Tables/Map/TabPanel'
+import GloabalDeaths from '../Tables/GlobalDeaths';
 import classes from './App.module.scss';
 
 function App({ byAllCases, byCountries, fetchData, loading }) {
@@ -78,6 +79,7 @@ function App({ byAllCases, byCountries, fetchData, loading }) {
       </main>
 
       {/* {!!byCountries.length && byCountries.map((item) => <div>{item.country}</div>)} */}
+      <GloabalDeaths />
     </div>
   );
 }
