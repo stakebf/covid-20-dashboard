@@ -8,6 +8,7 @@ import 'leaflet/dist/leaflet.css'
 import './map.scss'
 // import classes from './MapContainer.module.scss';
 
+let index = 0;
 
 const useStyles = makeStyles({
     mapContainer: {
@@ -114,7 +115,7 @@ function Map({ stat, byCountries, location, pickedCountry }) {
         const radius = (staticticValue / 10000000) * zoom;
     //  console.log(staticticValue, item, 'DF;LBNJ;FLSBNF')
         const backColor = getColor(staticticValue);
-        return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={1 * zoom}>
+        return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={1 * zoom} key={`${item.coordinates.latitude}_${++index}`}>
             <Popup>
                 {`${category} ${timePeriod}`}:{staticticValue}
                 <br />
@@ -132,8 +133,8 @@ function Map({ stat, byCountries, location, pickedCountry }) {
         const center = [item.countryInfo.lat, item.countryInfo.long];
         // const radius = item[statType] / 10000000;
         const backColor = getColor(staticticValue);
-        console.log(item)
-        return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={radius ? radius : 1 * zoom} key={idx ? idx : staticticValue}>
+        // console.log(item)
+        return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={radius ? radius : 1 * zoom} key={++index}>
             <Popup>
                 {`${category} ${timePeriod}`}:{staticticValue}
                 <br />
