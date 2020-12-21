@@ -1,7 +1,8 @@
 import { 
   FETCH_DATA_START,
   FETCH_DATA_SUCCESS,
-  FETCH_DATA_ERROR
+  FETCH_DATA_ERROR,
+  SET_ACTIVE_COUNTRY
 } from './actionTypes';
 import { getProvinceMap } from '../../helpers/getProvinceMap';
 import WorldometrsService from '../../services/WorldometrsService';
@@ -70,5 +71,12 @@ export const fetchDataError = (e) => {
   return {
     type: FETCH_DATA_ERROR,
     payload: e
+  };
+};
+
+export const setActiveCountry = (country) => {
+  return {
+    type: SET_ACTIVE_COUNTRY,
+    payload: country
   };
 };

@@ -1,13 +1,15 @@
 import {
   FETCH_DATA_START,
   FETCH_DATA_SUCCESS,
-  FETCH_DATA_ERROR
+  FETCH_DATA_ERROR,
+  SET_ACTIVE_COUNTRY
 } from '../actions/actionTypes';
 
 const initialState = {
-  loading: false,
+  loading: true,
   byCountries: [],
   byAllCases: {},
+  activeCountry: {},
   error: null
 };
 
@@ -32,6 +34,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload
+      };
+
+    case SET_ACTIVE_COUNTRY:
+      return {
+        ...state,
+        activeCountry: action.payload
       };
 
     default: 
