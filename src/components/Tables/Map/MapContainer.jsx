@@ -103,16 +103,6 @@ function Map({ stat, byCountries, location, pickedCountry }) {
         }
     }
 
-    const onMarkerHover = (e) => {
-        return {
-            mouseover: (e) => {
-                e.target.openPopup();
-                console.log(e.target, 'marker hovered')
-
-            },
-        }
-    }
-
     function getStaticticsValue(item) {
         const { category, timePeriod } = statictic;
         const statType = category === 'confirmed' ? 'cases' : category.toString();
@@ -182,12 +172,9 @@ function Map({ stat, byCountries, location, pickedCountry }) {
         return renderCountryMarker(item, stat, null, 10)
     }
 
-
     return (
         <>
-            <h1 onClick={(e) => {
-                onMarkerHover()
-            }} >Map</h1>
+            <h1>Map</h1>
             <MapContainer onClick={(e) => console.log(e.target)} className={classes.mapContainer} center={newLocation} minZoom={1} zoom={zoom} scrollWheelZoom={true}>
                 <MapEventHandler setZoom={setZoom} setIsNewLocation={setIsNewLocation} />
                 {country !== null && isNewLocation ? <FlyToLocation position={newLocation} item={country} stat={statictic} /> : null}
@@ -201,7 +188,6 @@ function Map({ stat, byCountries, location, pickedCountry }) {
                         return item.provinces.map((provence) => renderProvinceMarker(provence, item.country))
                     }
                     return renderCountryMarker(item, stat, idx)
-
                 })}
                 <Legend />
             </MapContainer >
