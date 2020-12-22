@@ -23,11 +23,9 @@ const useStyles = makeStyles({
 
 });
 
-const CasesItem = ({ item, cases, country, coordinates, setLocation, setCountry, setActiveCountry }) => {
+const CasesItem = ({ item, cases, country, setActiveCountry }) => {
     const classes = useStyles();
-    const handleItemClick = (coordinates) => {
-        setLocation(coordinates);
-        setCountry(item);
+    const handleItemClick = () => {
         setActiveCountry(item);
         console.log(item);
     }
@@ -35,7 +33,7 @@ const CasesItem = ({ item, cases, country, coordinates, setLocation, setCountry,
     return (
         <>
             <ListItem className={classes.casesItem} button onClick={() => {
-                handleItemClick(coordinates)
+                handleItemClick()
             }}>
                 <ListItemText primary={country} className={classes.casesCountry} />
                 <ListItemText primary={cases} className={classes.casesCount} />
@@ -52,8 +50,3 @@ const mapDispatchStateToProps = (dispatch) => {
 }
   
 export default connect(null, mapDispatchStateToProps)(CasesItem);
-
-
-// GlobalCases.propTypes = {
-//     total: PropTypes.number.isRequired,
-// };
