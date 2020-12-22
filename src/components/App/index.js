@@ -11,7 +11,7 @@ import GroupedTabs from '../Tabs';
 import AllKindsOfCases from '../Tables/AllKindsOfCases';
 import classes from './App.module.scss';
 
-function App({ byAllCases, byCountries, fetchData, loading }) {
+function App({ byAllCases, byCountries, fetchData, loading, activeCountry }) {
   const [parameters, setParameters] = useState({
     globalCases: 'cases',
     casesSelected: 'Cases by country'
@@ -64,20 +64,23 @@ function App({ byAllCases, byCountries, fetchData, loading }) {
     fetchData();
   }, [fetchData]);
 
+  console.log(activeCountry, 'activeCountry');
+
   return (
     <div className={classes.app}>
-      {loading ? <CircularProgress /> : <AllKindsOfCases />}
-      <main className={classes.main__container}>
+      {loading ? <CircularProgress /> : <main className={classes.main__container}>
+      <AllKindsOfCases />
         <GlobalCases casesType={parameters.globalCases} />
         <CasesContainer title={parameters.casesSelected} countries={byCountries} setCountry={setCountry} setLocation={setLocation} />
         <Container className='map__container'>
-          <GroupedTabs type={'category'} country={pickedCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={commonCaregories} />
-          <GroupedTabs type ={'timePeriod'} country={pickedCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={timeCategories} />
+          <GroupedTabs type={'category'} country={activeCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={commonCaregories} />
+          <GroupedTabs type ={'timePeriod'} country={activeCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={timeCategories} />
 
           {/* <Switcher setStat={setStatisticField} /> */}
-          <Map stat={statisticField} byAllCases={byAllCases} byCountries={byCountries} location={location} pickedCountry={pickedCountry} />
+          <Map stat={statisticField} byAllCases={byAllCases} cases={byCountries} location={location} pickedCountry={activeCountry} />
         </Container>
-      </main>
+      </main>}
+      
     </div>
   );
 }
@@ -86,7 +89,8 @@ const mapStateToProps = (state) => {
   return {
     byAllCases: state.byAllCases,
     byCountries: state.byCountries,
-    loading: state.loading
+    loading: state.loading,
+    activeCountry: state.activeCountry
   }
 }
 

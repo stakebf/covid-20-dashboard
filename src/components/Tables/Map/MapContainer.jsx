@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, useMapEvents, Popup, CircleMarker, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Popup, CircleMarker, useMap } from 'react-leaflet'
 import { makeStyles } from '@material-ui/core/styles';
-import Legend from './Legend'
-import MapProvider from './MapProvider'
-import { getStatistics } from '../../../helpers/getStatistics'
-import 'leaflet/dist/leaflet.css'
-import './map.scss'
-// import classes from './MapContainer.module.scss';
+import Legend from './Legend';
+import MapProvider from './MapProvider';
+import { getStatistics } from '../../../helpers/getStatistics';
+import 'leaflet/dist/leaflet.css';
+import './map.scss';
 
 let index = 0;
+const DEFAULT_LOCATION = [53.90033950661763, 27.562463259670654];
 
 const useStyles = makeStyles({
     mapContainer: {
@@ -39,49 +39,29 @@ const getColor = num => {
                             : "#4ddb0b";
 }
 
-function MapEventHandler({ setZoom, setIsNewLocation }) {
-    const map = useMapEvents({
-        zoomlevelschange(e) {
-            setIsNewLocation(false)
-        },
-        zoomend(e) {
-            setZoom(map.getZoom())
-        },
-        click(e) {
-            map.locate()
-        },
-        // locationfound(e) {
-        //     console.log(e, 'LOCATION E', e.latlng)
-        //     map.flyTo([13.87992, 45.9791], map.getZoom())
-        // }
-
-    })
-    return null
-}
-
-
-
-function Map({ stat, byCountries, location, pickedCountry }) {
-    const [cases, setAllCases] = useState([]);
-    const [newLocation, setLocation] = useState(location);
-    const [country, setPickedCountry] = useState(pickedCountry);
+function Map({ stat, cases, location, pickedCountry }) {
+    const coords = Object.keys(pickedCountry).length ? [pickedCountry.countryInfo.lat, pickedCountry.countryInfo.long] : DEFAULT_LOCATION;
+    // const [cases, setAllCases] = useState([]);
+    // const [newLocation, setLocation] = useState(location);
+    // const [country, setPickedCountry] = useState(pickedCountry);
     const [zoom, setZoom] = useState(1.5);
     const [isNewLocation, setIsNewLocation] = useState(false);
-    const [statictic, setStatistic] = useState(stat)
+    const [statictic, setStatistic] = useState(stat);
+    // const [location, setLocation] = useState([53.90033950661763, 27.562463259670654]);
+
+    // useEffect(() => {
+    //     setAllCases(byCountries);
+    // }, [byCountries])
+
+    // useEffect(() => {
+        // setLocation(location);
+        // setPickedCountry(pickedCountry);
+    // }, [location, newLocation, pickedCountry]);
+
 
     useEffect(() => {
-        setAllCases(byCountries);
-    }, [byCountries])
-
-    useEffect(() => {
-        setLocation(location)
-        setPickedCountry(pickedCountry)
-    }, [location, newLocation, country, pickedCountry])
-
-
-    useEffect(() => {
-        setIsNewLocation(true)
-    }, [pickedCountry])
+        setIsNewLocation(true);
+    }, [pickedCountry]);
 
     useEffect(() => {
         setStatistic(stat)
@@ -115,7 +95,7 @@ function Map({ stat, byCountries, location, pickedCountry }) {
         const radius = (staticticValue / 10000000) * zoom;
     //  console.log(staticticValue, item, 'DF;LBNJ;FLSBNF')
         const backColor = getColor(staticticValue);
-        return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={1 * zoom} key={`${item.coordinates.latitude}_${++index}`}>
+        return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={1 * 5} key={`${item.coordinates.latitude}_${++index}`}>
             <Popup>
                 {`${category} ${timePeriod}`}:{staticticValue}
                 <br />
@@ -134,7 +114,7 @@ function Map({ stat, byCountries, location, pickedCountry }) {
         // const radius = item[statType] / 10000000;
         const backColor = getColor(staticticValue);
         // console.log(item)
-        return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={radius ? radius : 1 * zoom} key={++index}>
+        return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={radius ? radius : 1 * 5} key={++index}>
             <Popup>
                 {`${category} ${timePeriod}`}:{staticticValue}
                 <br />
@@ -145,15 +125,23 @@ function Map({ stat, byCountries, location, pickedCountry }) {
 
     function FlyToLocation({ position, item, stat }) {
         const map = useMap();
-        map.flyTo([item.countryInfo.lat, item.countryInfo.long], 5)
-        return renderCountryMarker(item, stat, null, 10)
+
+        useEffect(() => {
+            map.flyTo([item.countryInfo.lat, item.countryInfo.long], 5);
+            setIsNewLocation(false);
+        }, []);
+
+
+        return renderCountryMarker(item, stat, null, 10);
     }
+
+    console.log(pickedCountry, '10');
 
 
     return (
-        < MapContainer className={classes.mapContainer} center={newLocation} minZoom={1} zoom={zoom} scrollWheelZoom={true}>
-            <MapEventHandler setZoom={setZoom} setIsNewLocation={setIsNewLocation} />
-            {country !== null && isNewLocation ? <FlyToLocation position={newLocation} item={country} stat={statictic} /> : null}
+        < MapContainer className={classes.mapContainer} center={coords} minZoom={1} zoom={zoom} scrollWheelZoom={true}>
+            {/* <MapEventHandler setZoom={setZoom} setIsNewLocation={setIsNewLocation} /> */}
+            {Object.keys(pickedCountry).length && isNewLocation ? <FlyToLocation position={coords} item={pickedCountry} stat={statictic} /> : null}
             <MapProvider />
 
             <TileLayer

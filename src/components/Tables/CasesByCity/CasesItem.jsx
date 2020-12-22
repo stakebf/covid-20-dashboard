@@ -52,8 +52,3 @@ const mapDispatchStateToProps = (dispatch) => {
 }
   
 export default connect(null, mapDispatchStateToProps)(CasesItem);
-
-
-// GlobalCases.propTypes = {
-//     total: PropTypes.number.isRequired,
-// };
