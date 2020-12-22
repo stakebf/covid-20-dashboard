@@ -9,6 +9,7 @@ import './map.scss';
 
 let index = 0;
 const DEFAULT_LOCATION = [53.90033950661763, 27.562463259670654];
+const ZOOM = 1.5;
 
 const useStyles = makeStyles({
     mapContainer: {
@@ -39,34 +40,13 @@ const getColor = num => {
                             : "#4ddb0b";
 }
 
-function Map({ stat, cases, location, pickedCountry }) {
+function Map({ stat, cases, pickedCountry }) {
     const coords = Object.keys(pickedCountry).length ? [pickedCountry.countryInfo.lat, pickedCountry.countryInfo.long] : DEFAULT_LOCATION;
-    // const [cases, setAllCases] = useState([]);
-    // const [newLocation, setLocation] = useState(location);
-    // const [country, setPickedCountry] = useState(pickedCountry);
-    const [zoom, setZoom] = useState(1.5);
     const [isNewLocation, setIsNewLocation] = useState(false);
-    const [statictic, setStatistic] = useState(stat);
-    // const [location, setLocation] = useState([53.90033950661763, 27.562463259670654]);
-
-    // useEffect(() => {
-    //     setAllCases(byCountries);
-    // }, [byCountries])
-
-    // useEffect(() => {
-        // setLocation(location);
-        // setPickedCountry(pickedCountry);
-    // }, [location, newLocation, pickedCountry]);
-
 
     useEffect(() => {
         setIsNewLocation(true);
     }, [pickedCountry]);
-
-    useEffect(() => {
-        setStatistic(stat)
-    // console.log(stat, statictic, 'STAT STATISTIC')
-    }, [stat])
 
     const classes = useStyles();
     const fillOptions = (color) => {
@@ -75,26 +55,26 @@ function Map({ stat, cases, location, pickedCountry }) {
             color: color,
             fillOpacity: 0.5
         }
-    }
+    };
 
     function getStaticticsValue(item) {
-        const { category, timePeriod } = statictic;
+        const { category, timePeriod } = stat;
         const statType = category === 'confirmed' ? 'cases' : category.toString();
-        // console.log(`today${statType.charAt(0).toUpperCase() + statType.slice(1)}`, item, 'INTO GETsTA' )
-
         let staticticValue = timePeriod.includes('today') ? item[`today${statType.charAt(0).toUpperCase() + statType.slice(1)}`] : item[statType];
-        if (timePeriod.includes('100')) staticticValue = getStatistics(staticticValue, item.population);
+
+        if (timePeriod.includes('100')) {
+            staticticValue = getStatistics(staticticValue, item.population);
+        }
+
         return staticticValue;
-    }
+    };
 
     function renderProvinceMarker(item) {
-        const { category, timePeriod } = statictic;
-
+        const { category, timePeriod } = stat;
         const center = [item.coordinates.latitude, item.coordinates.longitude];
         let staticticValue = getStaticticsValue(item);
-        const radius = (staticticValue / 10000000) * zoom;
-    //  console.log(staticticValue, item, 'DF;LBNJ;FLSBNF')
         const backColor = getColor(staticticValue);
+
         return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={1 * 5} key={`${item.coordinates.latitude}_${++index}`}>
             <Popup>
                 {`${category} ${timePeriod}`}:{staticticValue}
@@ -102,18 +82,14 @@ function Map({ stat, cases, location, pickedCountry }) {
                 {item.country}, {item.province}, {item.county}
             </Popup>
         </CircleMarker>
-    }
-
+    };
 
     function renderCountryMarker(item, stat, idx, radius) {
         const { category, timePeriod } = stat;
-        // const statType = category === 'confirmed' ? 'cases' : category.toString();
         let staticticValue = getStaticticsValue(item);
-
         const center = [item.countryInfo.lat, item.countryInfo.long];
-        // const radius = item[statType] / 10000000;
         const backColor = getColor(staticticValue);
-        // console.log(item)
+
         return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={radius ? radius : 1 * 5} key={++index}>
             <Popup>
                 {`${category} ${timePeriod}`}:{staticticValue}
@@ -121,9 +97,9 @@ function Map({ stat, cases, location, pickedCountry }) {
                 {item.country}
             </Popup>
         </CircleMarker>
-    }
+    };
 
-    function FlyToLocation({ position, item, stat }) {
+    function FlyToLocation({ item, stat }) {
         const map = useMap();
 
         useEffect(() => {
@@ -131,29 +107,23 @@ function Map({ stat, cases, location, pickedCountry }) {
             setIsNewLocation(false);
         }, []);
 
-
         return renderCountryMarker(item, stat, null, 10);
-    }
-
-    console.log(pickedCountry, '10');
-
+    };
 
     return (
-        < MapContainer className={classes.mapContainer} center={coords} minZoom={1} zoom={zoom} scrollWheelZoom={true}>
-            {/* <MapEventHandler setZoom={setZoom} setIsNewLocation={setIsNewLocation} /> */}
-            {Object.keys(pickedCountry).length && isNewLocation ? <FlyToLocation position={coords} item={pickedCountry} stat={statictic} /> : null}
+        < MapContainer className={classes.mapContainer} center={coords} minZoom={1} zoom={ZOOM} scrollWheelZoom={true}>
+            {Object.keys(pickedCountry).length && isNewLocation ? <FlyToLocation position={coords} item={pickedCountry} stat={stat} /> : null}
             <MapProvider />
-
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             />
+
             {cases.map((item, idx) => {
                 if (item.provinces !== null) {
                     return item.provinces.map((provence) => renderProvinceMarker(provence))
                 }
                 return renderCountryMarker(item, stat, idx)
-
             })}
             <Legend />
         </MapContainer >
