@@ -71,7 +71,7 @@ const mapDispatchStateToProps = (dispatch) => {
     return {
         setActiveCountry: (country) => dispatch(setActiveCountry(country)),
         fetchHistorcalDataByCountry: (country) => dispatch(fetchHistorcalDataByCountry(country))
-    }
+    }       
 }
 
 export default connect(null, mapDispatchStateToProps)(CasesItem);

@@ -37,6 +37,7 @@ const setChartAxis = (dates, cases, deaths, recovered, population) => {
         backgroundColor: 'green',
         borderColor: 'green',
         yAxisID: 'y-axis-1',
+        hidden: true,
       },
       {
         label: 'cases/total/100K',
@@ -45,6 +46,7 @@ const setChartAxis = (dates, cases, deaths, recovered, population) => {
         backgroundColor: '#adff2f',
         borderColor: '#adff2f',
         yAxisID: 'y-axis-1',
+        hidden: true,
       },
       {
         label: 'cases/today/100K',
@@ -53,6 +55,7 @@ const setChartAxis = (dates, cases, deaths, recovered, population) => {
         backgroundColor: '#14f714',
         borderColor: '#14f714',
         yAxisID: 'y-axis-1',
+        hidden: true,
       },
       {
         label: 'deaths/total',
@@ -69,6 +72,7 @@ const setChartAxis = (dates, cases, deaths, recovered, population) => {
         backgroundColor: 'red',
         borderColor: 'red',
         yAxisID: 'y-axis-1',
+        hidden: true,
       },
       {
         label: 'deaths/total/100K',
@@ -77,6 +81,7 @@ const setChartAxis = (dates, cases, deaths, recovered, population) => {
         backgroundColor: 'indianred',
         borderColor: 'indianred',
         yAxisID: 'y-axis-1',
+        hidden: true,
       },
       {
         label: 'deaths/today/100K',
@@ -85,6 +90,7 @@ const setChartAxis = (dates, cases, deaths, recovered, population) => {
         backgroundColor: 'palevioletred',
         borderColor: 'palevioletred',
         yAxisID: 'y-axis-1',
+        hidden: true,
       },
       {
         label: 'recovered/total',
@@ -101,6 +107,7 @@ const setChartAxis = (dates, cases, deaths, recovered, population) => {
         backgroundColor: 'blue',
         borderColor: 'blue',
         yAxisID: 'y-axis-1',
+        hidden: true,
       },
       {
         label: 'recovered/total/100K',
@@ -109,6 +116,7 @@ const setChartAxis = (dates, cases, deaths, recovered, population) => {
         backgroundColor: 'cadetblue',
         borderColor: 'cadetblue',
         yAxisID: 'y-axis-1',
+        hidden: true,
       },
       {
         label: 'recovered/today/100K',
@@ -117,6 +125,7 @@ const setChartAxis = (dates, cases, deaths, recovered, population) => {
         backgroundColor: 'dodgerblue',
         borderColor: 'dodgerblue',
         yAxisID: 'y-axis-1',
+        hidden: true,
       },
     ],
   }
