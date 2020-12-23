@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { CircularProgress } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { fetchData } from '../../redux/actions';
 import AppWrapper from '../AppWrapper';
 import Header from '../Header';
 import Footer from '../Footer';
 import ErrorStub from '../ErrorStub';
+import Preloader from '../Preloader';
+
 import classes from './App.module.scss';
 
 function App({ fetchData, loading, error }) {
@@ -16,8 +17,7 @@ function App({ fetchData, loading, error }) {
   return (
     <div className={classes.app}>
       <Header />
-      <ErrorStub />
-      {/* {loading ? <CircularProgress /> : !loading && !error ? <AppWrapper /> : <ErrorStub />} */}
+        {loading ? <Preloader /> : !loading && !error ? <AppWrapper /> : <ErrorStub />}
       <Footer />
     </div>
   );

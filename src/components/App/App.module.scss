@@ -10,3 +10,15 @@
   background-color: #2c2c2c;
   color: #fff3e9;
 }
+
+*::-webkit-scrollbar {
+  width: 8px;
+  background: #222222;
+  border-radius: 0;
+}
+
+*::-webkit-scrollbar-thumb {
+  width: 8px;
+  background: #717171;
+  border-radius: 0;
+}
