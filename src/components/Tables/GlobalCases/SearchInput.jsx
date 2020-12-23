@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+
+import KeyboardView from '../../Keyboard';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -21,6 +24,7 @@ export default function SearchInput({ cases, setNewCases }) {
 
   const handleChange = event => {
     setSearchTerm(event.target.value.toLowerCase());
+    console.log(searchTerm, 'searchTerm');
   };
 
   useEffect(() => {
@@ -29,6 +33,10 @@ export default function SearchInput({ cases, setNewCases }) {
     );
     setNewCases(results);
   }, [countries, searchTerm, setNewCases]);
+
+  useEffect(() => {
+    KeyboardView.render(setSearchTerm, searchTerm);
+  }, []);
 
   return (
     <form className={classes.formContainer} noValidate autoComplete="off">
