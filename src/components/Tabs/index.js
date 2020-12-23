@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
   '&$selected': {
     color: ' #fefeff',
     backgroundColor: ' #153468',
+  },
+  tabItem: {
+    width: '10%'
   }
 }));
 
@@ -63,9 +66,9 @@ const GroupedTabs = ({
           onChange={handleChange}
           variant="scrollable"
           scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
+          // aria-label="scrollable auto tabs example"
         >
-          {tabValues.map((tab, idx) => <Tab key={`${++tabIndex}_GroupedTabs`} label={tab} value={tab} {...a11yProps(idx)} />)}
+          {tabValues.map((tab, idx) => <Tab className={classes.tabItem} key={`${++tabIndex}_GroupedTabs`} label={tab} value={tab} {...a11yProps(idx)} />)}
         </Tabs>
       </AppBar>
     </div>

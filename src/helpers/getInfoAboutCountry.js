@@ -1,4 +1,4 @@
-const caseCalculationFormula = (cases, population) => {
+export const caseCalculationFormula = (cases, population) => {
   return (cases / population * 10e4).toFixed(2);
 }
 
@@ -14,9 +14,8 @@ export const getInfoAboutCountry = ({ category, timePeriod }, countryInfo, world
     recovered,
     todayRecovered
    } = currentInfo;
-  console.log(category, timePeriod, 'params');
-  console.log(currentInfo, 'countryInfo');
-  const result = {
+
+   const result = {
     confirmed: {
       total: cases,
       today: todayCases,
@@ -36,11 +35,6 @@ export const getInfoAboutCountry = ({ category, timePeriod }, countryInfo, world
       "today/100k": caseCalculationFormula(todayRecovered, population)
     },
   }[category.toLowerCase()][timePeriod.toLowerCase()];
-
-  console.log({
-    currentData: result,
-    countryName
-  });
 
   return {
     currentData: result,

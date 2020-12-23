@@ -1,6 +1,7 @@
 .cases {
     &__container {
         grid-column: 1;
+        max-width: 275px;
     }
 &__list {
     max-width: 275px;
