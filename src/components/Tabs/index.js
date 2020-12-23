@@ -16,26 +16,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: '100%',
-    backgroundColor: theme.palette.background.paper,
-    '&$selected': {
-      color: ' #fefeff',
-      backgroundColor: ' #153468',
-    }
-  },
-  tab: {
-    color: 'red',
-    '&::selection': {
-      color: ' #fefeff',
-      backgroundColor: ' #153468',
-    }
-  },
-  selected: {
-    color: ' #fefeff',
-    backgroundColor: ' #153468',
-  },
-  '&$selected': {
-    color: ' #fefeff',
-    backgroundColor: ' #153468',
+    '&>header': {
+      color: '#fefeff',
+      backgroundColor: '#222',
+    },
   },
   tabTableItem: {
     width: '10%',
@@ -72,7 +56,6 @@ styleClass }) => {
           onChange={handleChange}
           variant="scrollable"
           scrollButtons="auto"
-          className={classes[styleClass]}
         >
           {tabValues.map((tab, idx) => <Tab className={classes[styleClass]} key={`${++tabIndex}_GroupedTabs`} label={tab} value={tab} {...a11yProps(idx)} />)}
         </Tabs>

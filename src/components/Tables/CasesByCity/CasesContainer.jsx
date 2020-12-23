@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import CasesItem from './CasesItem';
 import SearchInput from '../GlobalCases/SearchInput';
 import { makeStyles } from '@material-ui/core/styles';
-import { List, Container, ListItem, ListItemText, Divider } from '@material-ui/core';
+import { List, ListItem, ListItemText, Divider } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { connect } from 'react-redux';

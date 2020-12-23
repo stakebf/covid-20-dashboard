@@ -17,7 +17,7 @@ function App({ fetchData, loading, error }) {
     <div className={classes.app}>
       <Header />
       <ErrorStub />
-      {loading ? <CircularProgress /> : !loading && !error ? <AppWrapper /> : <ErrorStub />}
+      {/* {loading ? <CircularProgress /> : !loading && !error ? <AppWrapper /> : <ErrorStub />} */}
       <Footer />
     </div>
   );

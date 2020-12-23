@@ -5,6 +5,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     borderRadius: '25px',
+    '&>label': {
+      color: '#fefeff',
+    },
+    '&>fieldset': {
+      backgroundColor: '#fefeff'
+    }
   },
 }));
 

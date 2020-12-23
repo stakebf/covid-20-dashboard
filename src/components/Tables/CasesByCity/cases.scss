@@ -1,19 +1,22 @@
 .cases {
-    &__container {
-        grid-column: 1;
-        max-width: 275px;
-    }
-&__list {
+  &__container {
+    grid-column: 1;
     max-width: 275px;
-    background-color: beige;
-    max-height: 85vh;
+    height: 80%;
+    display: grid;
+    grid-row-gap: 3%;
+  }
+  &__list {
+    max-width: 275px;
+    background-color: #2c2c2c;
+    height: 100%;
     overflow-y: scroll;
-}
-&__title {
+  }
+  &__title {
     font-size: 18px;
     text-align: center;
-}
+  }
 }
 .MuiTypography-body1 {
-    font-size: 0.9rem;
+  font-size: 0.9rem;
 }

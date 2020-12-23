@@ -1,25 +1,28 @@
-.app {
-}
-
 .main {
   &__container {
     display: grid;
-    grid-template-columns: 15% 60% 25%;
-    
+    grid-template-columns: 15% 60% 22%;
+    flex: 1 0 auto;
+    grid-column-gap: 1%;
   }
 }
-
-.tab {
-  &__selected {
-    color: #fefeff;
-    background-color: #153468;
-  }
-}
-
 
 .global {
   &__container {
     padding: 0;
+    max-height: calc(100vh - 130px);
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.map {
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
+  &__tab-container {
+    background-color: #fefeff;
   }
 }
 

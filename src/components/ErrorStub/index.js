@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchData } from '../../redux/actions';
-
 import classes from './ErrorStub.module.scss';
 
 const ErrorStub = ({ fetchData }) => {

@@ -25,15 +25,16 @@ const AppWrapper = ({ byAllCases, byCountries, activeCountry }) => {
 
   return (
     <main className={classes.main__container}>
-      <section className={'global__container'}>
+      <section className={classes.global__container}>
         <GlobalCases casesType={parameters.globalCases} />
         <CasesContainer title={parameters.casesSelected} countries={byCountries} />
       </section>
-
-      <section className='map__container'>
+      <section className={classes.map__container}>
         <Map stat={statisticField} byAllCases={byAllCases} cases={byCountries} pickedCountry={activeCountry} />
+        <div className={'map__tab-container'}>
         <GroupedTabs styleClass={'mapTab'} type={'category'} country={activeCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={commonCaregories} />
         <GroupedTabs styleClass={'mapTab'} type={'timePeriod'} country={activeCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={timeCategories} />
+        </div>
       </section>
       <section className={'allCases__container'}>
         <AllKindsOfCases />

@@ -1,28 +1,12 @@
-.app {
-}
-
-.main {
-  &__container {
-    display: grid;
-    grid-template-columns: minmax(150px, 280px) 2fr minmax(150px, 335px);
-    
-  }
-}
-
-.tab {
-  &__selected {
-    color: #fefeff;
-    background-color: #153468;
-  }
-}
-
-
-.global {
-  &__container {
-    padding: 0;
-  }
-}
-
-.MuiContainer-root {
+* {
+  box-sizing: border-box;
   padding: 0;
+  margin: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  background-color: #2c2c2c;
+  color: #fff3e9;
 }

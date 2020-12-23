@@ -1,6 +1,5 @@
 import React from 'react';
 import { LayersControl, TileLayer } from 'react-leaflet'
-import MinimapControl from './MiniMap'
 
 const MapProvider = () => {
 
@@ -11,7 +10,6 @@ const MapProvider = () => {
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {/* <MinimapControl position="topright" /> */}
             </LayersControl.BaseLayer>
             <LayersControl.BaseLayer name="OpenStreetMap.BlackAndWhite">
                 <TileLayer
@@ -25,11 +23,11 @@ const MapProvider = () => {
                     url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
                 />
             </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="Stadia.AlidadeSmoothDark">
-                <TileLayer
-                    attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-                    url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
-                />
+            <LayersControl.BaseLayer name="OpenMap">
+            <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            />
             </LayersControl.BaseLayer>
             <LayersControl.BaseLayer name="Stamen.Toner">
                 <TileLayer
