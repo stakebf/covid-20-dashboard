@@ -2,9 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { setActiveCountry } from '../../../redux/actions';
 import { makeStyles } from '@material-ui/core/styles';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
+import { ListItem, ListItemAvatar, ListItemText, Divider, Avatar } from '@material-ui/core';
 
 const useStyles = makeStyles({
     casesItem: {
@@ -21,6 +19,10 @@ const useStyles = makeStyles({
         flexGrow: 1,
         fontSize: '13px',
         paddingRight: '35px'
+    },
+    avatar: {
+        width: '25px',
+        height: '25px'
     }
 
 });
@@ -36,7 +38,11 @@ const CasesItem = ({ item, cases, country, setActiveCountry }) => {
             <ListItem className={classes.casesItem} button onClick={() => {
                 handleItemClick()
             }}>
-                <ListItemText primary={country} className={classes.casesCountry} />
+                <ListItemAvatar>
+                    <Avatar alt="Remy Sharp" src={item.countryInfo.flag} className={classes.avatar}/>
+                </ListItemAvatar>
+                <ListItemText primary={country} className={classes.casesCountry}>
+                </ListItemText>
                 <ListItemText primary={cases} className={classes.casesCount} />
             </ListItem>
             <Divider />
