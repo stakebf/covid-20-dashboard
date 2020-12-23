@@ -14,3 +14,15 @@
   background-size: cover;
   background-blend-mode: lighten;
 }
+
+*::-webkit-scrollbar {
+  width: 8px;
+  background: #222222;
+  border-radius: 0;
+}
+
+*::-webkit-scrollbar-thumb {
+  width: 8px;
+  background: #717171;
+  border-radius: 0;
+}
