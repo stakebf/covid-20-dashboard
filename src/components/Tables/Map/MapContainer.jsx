@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, useMapEvents, Popup, CircleMarker, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Popup, CircleMarker, useMap } from 'react-leaflet'
 import { makeStyles } from '@material-ui/core/styles';
 import Legend from './Legend';
 import MapProvider from './MapProvider';
@@ -17,7 +17,8 @@ const useStyles = makeStyles({
         margin: '0 auto',
         marginBottom: '50px',
         height: '80vh',
-        width: '100%'
+        width: '100%',
+        gridColumn: '2'
     },
     title: {
         fontSize: 14,
@@ -74,7 +75,6 @@ function Map({ stat, cases, pickedCountry }) {
         const center = [item.coordinates.latitude, item.coordinates.longitude];
         let staticticValue = getStaticticsValue(item);
         const backColor = getColor(staticticValue);
-
         return <CircleMarker
             eventHandlers={{
                 mouseover: (e) => {
@@ -84,11 +84,14 @@ function Map({ stat, cases, pickedCountry }) {
                     e.target.closePopup();
                 }
             }}
-            center={center} pathOptions={fillOptions(backColor)} radius={1 * 5} key={`${item.coordinates.latitude}_${++index}`}>
+            center={center}
+            pathOptions={fillOptions(backColor)}
+            radius={1 * 5}
+            key={`${item.coordinates.latitude}_${++index}`}>
             <Popup>
                 {`${category} ${timePeriod}`}:{item.stats[category]}
                 <br />
-                {pickedCountry}, {item.province}
+                {pickedCountry.country}, {item.province}
             </Popup>
         </CircleMarker>
     };
@@ -107,7 +110,11 @@ function Map({ stat, cases, pickedCountry }) {
                     e.target.closePopup();
                 }
             }}
-            center={center} pathOptions={fillOptions(backColor)} radius={radius ? radius : 1 * 5} key={++index}>
+
+            center={center}
+            pathOptions={fillOptions(backColor)}
+            radius={radius ? radius : 1 * 5}
+            key={++index}>
             <Popup>
                 {`${category} ${timePeriod}`}:{staticticValue}
                 <br />
