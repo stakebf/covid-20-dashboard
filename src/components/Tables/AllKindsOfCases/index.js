@@ -20,7 +20,7 @@ const AllKindsOfCases = ({ activeCountry, byAllCases }) => {
   console.log(statisticField, 'statisticField');
 
   return (
-    <div>
+    <section className={classes.table2__container}>
       <h2>Table with confirmed / deaths / recovered cases</h2>
       <List component="div" className={classes.root}>
         <ListItem button>
@@ -30,11 +30,13 @@ const AllKindsOfCases = ({ activeCountry, byAllCases }) => {
         <Divider />
       </List>
       <GroupedTabs 
+      className={classes.table2__container}
         type={'category'}
         country={activeCountry}
         setStatisticField={setStatisticField} 
         statisticField={statisticField} 
         tabValues={tabsNames.mainCategories} 
+        styleClass={'tabTableItem'}
       />
       <GroupedTabs 
         type={'timePeriod'} 
@@ -42,8 +44,9 @@ const AllKindsOfCases = ({ activeCountry, byAllCases }) => {
         setStatisticField={setStatisticField} 
         statisticField={statisticField} 
         tabValues={tabsNames.timeCategories} 
+        styleClass={'tabTableItem'}
       />
-    </div>
+    </section>
   );
 };
 

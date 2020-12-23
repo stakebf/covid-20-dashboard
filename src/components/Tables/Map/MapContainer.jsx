@@ -13,9 +13,8 @@ const ZOOM = 1.5;
 
 const useStyles = makeStyles({
     mapContainer: {
-        backgroundColor: 'beige',
+        backgroundColor: '#2c2c2c',
         margin: '0 auto',
-        marginBottom: '50px',
         height: '80vh',
         width: '100%',
         gridColumn: '2'
@@ -138,10 +137,9 @@ function Map({ stat, cases, pickedCountry }) {
             {Object.keys(pickedCountry).length && isNewLocation ? <FlyToLocation position={coords} item={pickedCountry} stat={stat} /> : null}
             <MapProvider />
             <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+                url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
             />
-
             {cases.map((item, idx) => {
                 if (item.provinces !== null) {
                     return item.provinces.map((provence) => renderProvinceMarker(provence))

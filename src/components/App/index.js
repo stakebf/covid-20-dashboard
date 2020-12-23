@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { CircularProgress } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { fetchData } from '../../redux/actions';
-
 import AppWrapper from '../AppWrapper';
 import Header from '../Header';
 import Footer from '../Footer';
@@ -18,7 +17,7 @@ function App({ fetchData, loading, error }) {
     <div className={classes.app}>
       <Header />
       <ErrorStub />
-      {loading ? <CircularProgress /> : !loading && !error ? <AppWrapper /> : <ErrorStub />}
+      {/* {loading ? <CircularProgress /> : !loading && !error ? <AppWrapper /> : <ErrorStub />} */}
       <Footer />
     </div>
   );
