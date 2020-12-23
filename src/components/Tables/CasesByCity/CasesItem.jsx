@@ -2,23 +2,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { setActiveCountry } from '../../../redux/actions';
 import { makeStyles } from '@material-ui/core/styles';
-// import PropTypes from 'prop-types';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-// import Map from '../Map/MapContainer'
 
 const useStyles = makeStyles({
     casesItem: {
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     casesCountry: {
         flexGrow: 2,
         maxWidth: '50%',
+        fontSize: '13px',
+        paddingRight: '35px'
     },
     casesCount: {
-        flexGrow: 1
+        flexGrow: 1,
+        fontSize: '13px',
+        paddingRight: '35px'
     }
 
 });
@@ -27,7 +29,6 @@ const CasesItem = ({ item, cases, country, setActiveCountry }) => {
     const classes = useStyles();
     const handleItemClick = () => {
         setActiveCountry(item);
-        console.log(item);
     }
 
     return (
@@ -46,7 +47,7 @@ const CasesItem = ({ item, cases, country, setActiveCountry }) => {
 const mapDispatchStateToProps = (dispatch) => {
     return {
         setActiveCountry: (country) => dispatch(setActiveCountry(country))
-    }       
+    }
 }
-  
+
 export default connect(null, mapDispatchStateToProps)(CasesItem);

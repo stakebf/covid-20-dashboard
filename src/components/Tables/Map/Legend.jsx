@@ -37,12 +37,10 @@ const Legend = () => {
             for (let i = 0; i < grades.length; i++) {
                 from = grades[i];
                 to = grades[i + 1];
-
                 labels.push(
                     `<div class=${classes.label__item}><span style="background:${getColor(from + 1)}" class=${classes.label__color}></span><span> ${to ? to : +grades[i]}</span></div>`
                 );
             }
-
             div.innerHTML = labels.join("<br>");
             return div;
         };
