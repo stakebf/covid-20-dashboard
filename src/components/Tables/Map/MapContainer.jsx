@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     mapContainer: {
         backgroundColor: '#2c2c2c',
         margin: '0 auto',
-        height: '80vh',
+        height: 'calc(100% - 100px)',
         width: '100%',
         gridColumn: '2'
     },

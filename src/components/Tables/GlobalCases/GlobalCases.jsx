@@ -8,11 +8,11 @@ import { connect } from 'react-redux';
 const useStyles = makeStyles({
   root: {
     maxWidth: 275,
-    backgroundColor: '#2c2c2c',
+    backgroundColor: '#22212199',
     gridRow: '1',
     gridColumn: '1/4',
-    color: ' #fff3e9'
-
+    color: ' #fff3e9',
+    maxHeight: '110px'
   },
   title: {
     fontSize: '1.5rem',

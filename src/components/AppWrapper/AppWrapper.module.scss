@@ -4,13 +4,14 @@
     grid-template-columns: 15% 60% 22%;
     flex: 1 0 auto;
     grid-column-gap: 1%;
+    height: calc(100vh - 130px);
+    padding: 30px 20px;
   }
 }
 
 .global {
   &__container {
     padding: 0;
-    max-height: calc(100vh - 130px);
     display: flex;
     flex-direction: column;
   }
@@ -20,9 +21,10 @@
   &__container {
     display: flex;
     flex-direction: column;
+    height: calc(100vh - 180px);
   }
   &__tab-container {
-    background-color: #fefeff;
+    max-height: 100px;
   }
 }
 
