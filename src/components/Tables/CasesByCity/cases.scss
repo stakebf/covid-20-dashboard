@@ -1,0 +1,18 @@
+.cases {
+    &__container {
+        grid-column: 1;
+    }
+&__list {
+    max-width: 275px;
+    background-color: beige;
+    max-height: 85vh;
+    overflow-y: scroll;
+}
+&__title {
+    font-size: 18px;
+    text-align: center;
+}
+}
+.MuiTypography-body1 {
+    font-size: 0.9rem;
+}

@@ -17,7 +17,8 @@ const useStyles = makeStyles({
         margin: '0 auto',
         marginBottom: '50px',
         height: '80vh',
-        width: '100%'
+        width: '100%',
+        gridColumn: '2'
     },
     title: {
         fontSize: 14,
@@ -74,12 +75,23 @@ function Map({ stat, cases, pickedCountry }) {
         const center = [item.coordinates.latitude, item.coordinates.longitude];
         let staticticValue = getStaticticsValue(item);
         const backColor = getColor(staticticValue);
-
-        return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={1 * 5} key={`${item.coordinates.latitude}_${++index}`}>
+        return <CircleMarker
+            eventHandlers={{
+                mouseover: (e) => {
+                    e.target.openPopup();
+                },
+                mouseout: (e) => {
+                    e.target.closePopup();
+                }
+            }}
+            center={center}
+            pathOptions={fillOptions(backColor)}
+            radius={1 * 5}
+            key={`${item.coordinates.latitude}_${++index}`}>
             <Popup>
-                {`${category} ${timePeriod}`}:{staticticValue}
+                {`${category} ${timePeriod}`}:{item.stats[category]}
                 <br />
-                {item.country}, {item.province}, {item.county}
+                {pickedCountry.country}, {item.province}
             </Popup>
         </CircleMarker>
     };
@@ -89,8 +101,20 @@ function Map({ stat, cases, pickedCountry }) {
         let staticticValue = getStaticticsValue(item);
         const center = [item.countryInfo.lat, item.countryInfo.long];
         const backColor = getColor(staticticValue);
+        return <CircleMarker
+            eventHandlers={{
+                mouseover: (e) => {
+                    e.target.openPopup();
+                },
+                mouseout: (e) => {
+                    e.target.closePopup();
+                }
+            }}
 
-        return <CircleMarker center={center} pathOptions={fillOptions(backColor)} radius={radius ? radius : 1 * 5} key={++index}>
+            center={center}
+            pathOptions={fillOptions(backColor)}
+            radius={radius ? radius : 1 * 5}
+            key={++index}>
             <Popup>
                 {`${category} ${timePeriod}`}:{staticticValue}
                 <br />
@@ -101,7 +125,6 @@ function Map({ stat, cases, pickedCountry }) {
 
     function FlyToLocation({ item, stat }) {
         const map = useMap();
-
         useEffect(() => {
             map.flyTo([item.countryInfo.lat, item.countryInfo.long], 5);
             setIsNewLocation(false);
