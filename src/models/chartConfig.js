@@ -56,6 +56,7 @@ const chartOptions = (byHistoricalCountry, activeCountry) => {
     },
     title: {
       display: true,
+      fontColor: "#fff3e9",
       text: [countryName, errorData]
     },
     legend: {
