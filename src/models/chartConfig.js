@@ -23,6 +23,10 @@ const chartOptions = (byHistoricalCountry, activeCountry) => {
   return {
     scales: {
       xAxes: [{
+        ticks: {
+          fontColor: "#fff3e9",
+          fontSize: 10,
+        },
         gridLines: {
           display: false,
         },
@@ -33,6 +37,8 @@ const chartOptions = (byHistoricalCountry, activeCountry) => {
           position: 'left',
           id: 'y-axis-1',
           ticks: {
+            fontColor: "#fff3e9",
+            fontSize: 10,
             beginAtZero: true,
             userCallback(value) {
               const { number, quantityRepeats } = cutZerosHelper(value);
@@ -51,6 +57,12 @@ const chartOptions = (byHistoricalCountry, activeCountry) => {
     title: {
       display: true,
       text: [countryName, errorData]
+    },
+    legend: {
+      labels: {
+          fontColor: "#fff3e9",
+          fontSize: 10
+      }
     },
     maintainAspectRatio: false,
     responsive: true

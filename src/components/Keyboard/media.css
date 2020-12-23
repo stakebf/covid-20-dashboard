@@ -1,0 +1,66 @@
+@media screen and (max-width: 1500px) {
+  .hide_btn {
+    width: 9%;
+    margin-left: 3%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .keyboard__key {
+    font-size: 14px;
+    width: 6%;
+  }
+  .keyboard__key--wide {
+    width: 7%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .keyboard__key--wide {
+    width: 8%;
+  }
+
+  .keyboard__key--activatable::after {
+    top: 5px;
+    right: 5px;
+  }
+
+  .keyboard__key--shift::after {
+    top: 5px;
+    right: 5px;
+  }
+
+  .keyboard__key--mute::after {
+    top: 5px;
+    right: 5px;
+  }
+
+  .keyboard__key--caps::after {
+    top: 5px;
+    right: 5px;
+  }
+
+  .keyboard__key--speech::after {
+    top: 5px;
+    right: 5px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .use-keyboard-input {
+    font-size: 15px;
+    height: calc(100vh - 330px);
+    min-height: 290px;
+  }
+}
+
+@media screen and (max-width: 710px) {
+  .keyboard__key {
+    width: 5.5%;
+    padding: 15px 0;
+  }
+
+  .keyboard__key--wide {
+    width: 7.5%;
+  }
+}
