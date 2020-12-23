@@ -8,10 +8,11 @@ import CasesContainer from '../Tables/CasesByCity/CasesContainer';
 import Map from '../Tables/Map/MapContainer';
 import GroupedTabs from '../Tabs';
 import AllKindsOfCases from '../Tables/AllKindsOfCases';
+import Charts from '../Chart';
 
 import classes from './App.module.scss';
 
-function App({ byAllCases, byCountries, fetchData, loading, activeCountry }) {
+function App({ byAllCases, byCountries, fetchData, loading, activeCountry, error }) {
   const [parameters, setParameters] = useState({
     globalCases: 'cases',
     casesSelected: 'Cases by country'
@@ -33,8 +34,9 @@ function App({ byAllCases, byCountries, fetchData, loading, activeCountry }) {
 
   return (
     <div className={classes.app}>
-      {loading ? <CircularProgress /> : <main className={classes.main__container}>
-      <AllKindsOfCases />
+      {loading ? <CircularProgress /> : !loading && !error ? <main className={classes.main__container}>
+        <AllKindsOfCases />
+        <Charts />
         <GlobalCases casesType={parameters.globalCases} />
         <CasesContainer title={parameters.casesSelected} countries={byCountries} />
         <Container className='map__container'>
@@ -42,7 +44,7 @@ function App({ byAllCases, byCountries, fetchData, loading, activeCountry }) {
           <GroupedTabs type ={'timePeriod'} country={activeCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={timeCategories} />
           <Map stat={statisticField} byAllCases={byAllCases} cases={byCountries} pickedCountry={activeCountry} />
         </Container>
-      </main>}
+      </main> : 'error'}
     </div>
   );
 }
@@ -52,7 +54,8 @@ const mapStateToProps = (state) => {
     byAllCases: state.byAllCases,
     byCountries: state.byCountries,
     loading: state.loading,
-    activeCountry: state.activeCountry
+    activeCountry: state.activeCountry,
+    error: state.error
   }
 }
 
