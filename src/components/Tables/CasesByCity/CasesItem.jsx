@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setActiveCountry } from '../../../redux/actions';
+import { setActiveCountry, fetchHistorcalDataByCountry } from '../../../redux/actions';
 import { makeStyles } from '@material-ui/core/styles';
 import { ListItem, ListItemAvatar, ListItemText, Divider, Avatar } from '@material-ui/core';
 
@@ -27,10 +27,12 @@ const useStyles = makeStyles({
 
 });
 
-const CasesItem = ({ item, cases, country, setActiveCountry }) => {
+const CasesItem = ({ item, cases, country, setActiveCountry, fetchHistorcalDataByCountry }) => {
     const classes = useStyles();
     const handleItemClick = () => {
         setActiveCountry(item);
+        fetchHistorcalDataByCountry(item.country);
+        console.log(item, item.country, 'setActiveCountry');
     }
 
     return (
@@ -52,8 +54,9 @@ const CasesItem = ({ item, cases, country, setActiveCountry }) => {
 
 const mapDispatchStateToProps = (dispatch) => {
     return {
-        setActiveCountry: (country) => dispatch(setActiveCountry(country))
-    }
+        setActiveCountry: (country) => dispatch(setActiveCountry(country)),
+        fetchHistorcalDataByCountry: (country) => dispatch(fetchHistorcalDataByCountry(country))
+    }       
 }
 
 export default connect(null, mapDispatchStateToProps)(CasesItem);

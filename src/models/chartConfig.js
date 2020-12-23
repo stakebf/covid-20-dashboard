@@ -16,7 +16,10 @@ const cutZerosHelper = (number) => {
   };
 }
 
-const chartOptions = (countryName) => {
+const chartOptions = (byHistoricalCountry, activeCountry) => {
+  const countryName = !byHistoricalCountry.message && Object.keys(byHistoricalCountry).length ? byHistoricalCountry.country : 'World data';
+  const errorData = byHistoricalCountry.message ? `There is currently no data for: ${activeCountry.country}` : '';
+
   return {
     scales: {
       xAxes: [{
@@ -47,8 +50,10 @@ const chartOptions = (countryName) => {
     },
     title: {
       display: true,
-      text: countryName
-    }
+      text: [countryName, errorData]
+    },
+    maintainAspectRatio: true,
+    responsive: false
   }
 }
 
