@@ -32,8 +32,8 @@ const AppWrapper = ({ byAllCases, byCountries, activeCountry }) => {
 
       <section className='map__container'>
         <Map stat={statisticField} byAllCases={byAllCases} cases={byCountries} pickedCountry={activeCountry} />
-        <GroupedTabs type={'category'} country={activeCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={commonCaregories} />
-        <GroupedTabs type={'timePeriod'} country={activeCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={timeCategories} />
+        <GroupedTabs styleClass={'mapTab'} type={'category'} country={activeCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={commonCaregories} />
+        <GroupedTabs styleClass={'mapTab'} type={'timePeriod'} country={activeCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={timeCategories} />
       </section>
       <section className={'allCases__container'}>
         <AllKindsOfCases />

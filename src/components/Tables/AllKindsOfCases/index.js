@@ -36,6 +36,7 @@ const AllKindsOfCases = ({ activeCountry, byAllCases }) => {
         setStatisticField={setStatisticField} 
         statisticField={statisticField} 
         tabValues={tabsNames.mainCategories} 
+        styleClass={'tabTableItem'}
       />
       <GroupedTabs 
         type={'timePeriod'} 
@@ -43,6 +44,7 @@ const AllKindsOfCases = ({ activeCountry, byAllCases }) => {
         setStatisticField={setStatisticField} 
         statisticField={statisticField} 
         tabValues={tabsNames.timeCategories} 
+        styleClass={'tabTableItem'}
       />
     </section>
   );

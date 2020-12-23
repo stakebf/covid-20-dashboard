@@ -37,8 +37,13 @@ const useStyles = makeStyles((theme) => ({
     color: ' #fefeff',
     backgroundColor: ' #153468',
   },
-  tabItem: {
-    width: '10%'
+  tabTableItem: {
+    width: '10%',
+    fontSize: '0.7rem',
+    padding: '2px'
+  },
+  mapTab : {
+    justifyContent: 'space-around'
   }
 }));
 
@@ -46,7 +51,8 @@ const GroupedTabs = ({
   statisticField = null, 
   setStatisticField = null, 
   tabValues, 
-  type }) => {
+  type, 
+styleClass }) => {
   const classes = useStyles();
   const [value, setValue] = useState(statisticField[type]);
 
@@ -66,9 +72,9 @@ const GroupedTabs = ({
           onChange={handleChange}
           variant="scrollable"
           scrollButtons="auto"
-          // aria-label="scrollable auto tabs example"
+          className={classes[styleClass]}
         >
-          {tabValues.map((tab, idx) => <Tab className={classes.tabItem} key={`${++tabIndex}_GroupedTabs`} label={tab} value={tab} {...a11yProps(idx)} />)}
+          {tabValues.map((tab, idx) => <Tab className={classes[styleClass]} key={`${++tabIndex}_GroupedTabs`} label={tab} value={tab} {...a11yProps(idx)} />)}
         </Tabs>
       </AppBar>
     </div>
