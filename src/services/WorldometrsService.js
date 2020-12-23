@@ -47,8 +47,8 @@ class WorldometrsService {
     return this.getResource(`${this._API_URL}/jhucsse/counties`);
   }
   
-  getFromJhucsseByHistorical() {
-    return this.getResource(`${this._API_URL}/historical`);
+  getFromJhucsseByHistorical(country) {
+    return this.getResource(`${this._API_URL}/historical/${country}`);
   }
   
   getFromJhucsseByHistoricalAll() {
