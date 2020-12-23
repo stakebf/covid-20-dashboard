@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { fetchData } from '../../redux/actions';
 
 import AppWrapper from '../AppWrapper';
+import Header from '../Header';
+import Footer from '../Footer';
+import ErrorStub from '../ErrorStub';
 import classes from './App.module.scss';
 
 function App({ fetchData, loading, error }) {
@@ -13,7 +16,10 @@ function App({ fetchData, loading, error }) {
 
   return (
     <div className={classes.app}>
-      {loading ? <CircularProgress /> : !loading && !error ? <AppWrapper /> : 'error'}
+      <Header />
+      <ErrorStub />
+      {loading ? <CircularProgress /> : !loading && !error ? <AppWrapper /> : <ErrorStub />}
+      <Footer />
     </div>
   );
 }
