@@ -1,4 +1,9 @@
 .MuiTab-textColorInherit.Mui-selected {
   color: #fefeff;
-  background-color: #153468;
+  background-color: #890707;
+}
+
+.MuiTabScrollButton-root.Mui-disabled {
+  opacity: 1;
+  color: #cfcfcf;
 }

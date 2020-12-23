@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
+    width: '100%',
+    borderRadius: '25px',
+    '&>label': {
+      color: '#fefeff',
     },
+    '&>fieldset': {
+      backgroundColor: '#fefeff'
+    }
   },
 }));
 
@@ -29,10 +32,10 @@ export default function SearchInput({ cases, setNewCases }) {
 
   return (
     <form className={classes.formContainer} noValidate autoComplete="off">
-      <TextField id="outlined-basic" label="Enter city" variant="outlined" 
-      onChange={(e) => {
-        handleChange(e)
-      }}
+      <TextField className={classes.root} id="outlined-basic" label="Enter city" variant="outlined"
+        onChange={(e) => {
+          handleChange(e)
+        }}
         onKeyPress={(e) => {
           if (e.code === 'Enter') e.preventDefault();
         }

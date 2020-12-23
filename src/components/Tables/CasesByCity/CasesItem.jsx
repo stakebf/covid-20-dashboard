@@ -6,23 +6,36 @@ import { ListItem, ListItemAvatar, ListItemText, Divider, Avatar } from '@materi
 
 const useStyles = makeStyles({
     casesItem: {
-        display: 'flex',
+        display: 'grid',
         flexDirection: 'row',
+        gridAutoFlow: 'column',
+        gridTemplateColumns: '2fr 1fr 1fr',
     },
     casesCountry: {
         flexGrow: 2,
         maxWidth: '50%',
         fontSize: '13px',
-        paddingRight: '35px'
+        paddingRight: '35px',
+        '&>span': {
+            fontSize: '14px',
+            fontWeight: 'bold',
+        }
     },
     casesCount: {
+        color: 'red',
         flexGrow: 1,
         fontSize: '13px',
-        paddingRight: '35px'
+        paddingRight: '35px',
+        '&>span': {
+            fontSize: '14px',
+            fontWeight: 'bold',
+        }
     },
     avatar: {
         width: '25px',
-        height: '25px'
+        height: '25px',
+        minWidth: '25px',
+        justifySelf: 'self-end'
     }
 
 });
@@ -35,17 +48,19 @@ const CasesItem = ({ item, cases, country, setActiveCountry, fetchHistorcalDataB
         console.log(item, item.country, 'setActiveCountry');
     }
 
+    const style = {
+        fontSize: '13px'
+    }
     return (
         <>
             <ListItem className={classes.casesItem} button onClick={() => {
                 handleItemClick()
             }}>
-                <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" src={item.countryInfo.flag} className={classes.avatar}/>
-                </ListItemAvatar>
-                <ListItemText primary={country} className={classes.casesCountry}>
-                </ListItemText>
+                <ListItemText style={style} primary={country} className={classes.casesCountry} />
                 <ListItemText primary={cases} className={classes.casesCount} />
+                <ListItemAvatar className={classes.avatar}>
+                    <Avatar alt="Country flag" src={item.countryInfo.flag} className={classes.avatar} />
+                </ListItemAvatar>
             </ListItem>
             <Divider />
         </>

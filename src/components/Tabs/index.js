@@ -16,26 +16,18 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: '100%',
-    backgroundColor: theme.palette.background.paper,
-    '&$selected': {
-      color: ' #fefeff',
-      backgroundColor: ' #153468',
-    }
+    '&>header': {
+      color: '#fefeff',
+      backgroundColor: '#222',
+    },
   },
-  tab: {
-    color: 'red',
-    '&::selection': {
-      color: ' #fefeff',
-      backgroundColor: ' #153468',
-    }
+  tabTableItem: {
+    width: '10%',
+    fontSize: '0.7rem',
+    padding: '2px'
   },
-  selected: {
-    color: ' #fefeff',
-    backgroundColor: ' #153468',
-  },
-  '&$selected': {
-    color: ' #fefeff',
-    backgroundColor: ' #153468',
+  mapTab : {
+    justifyContent: 'space-around'
   }
 }));
 
@@ -43,7 +35,8 @@ const GroupedTabs = ({
   statisticField = null, 
   setStatisticField = null, 
   tabValues, 
-  type }) => {
+  type, 
+styleClass }) => {
   const classes = useStyles();
   const [value, setValue] = useState(statisticField[type]);
 
@@ -63,9 +56,8 @@ const GroupedTabs = ({
           onChange={handleChange}
           variant="scrollable"
           scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
         >
-          {tabValues.map((tab, idx) => <Tab key={`${++tabIndex}_GroupedTabs`} label={tab} value={tab} {...a11yProps(idx)} />)}
+          {tabValues.map((tab, idx) => <Tab className={classes[styleClass]} key={`${++tabIndex}_GroupedTabs`} label={tab} value={tab} {...a11yProps(idx)} />)}
         </Tabs>
       </AppBar>
     </div>

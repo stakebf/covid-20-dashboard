@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from 'react';
 
 import CasesItem from './CasesItem';
-import SearchInput from '../GlobalCases/SearchInput'
-import { List, Container, ListItem, ListItemText, Divider } from '@material-ui/core';
+import SearchInput from '../GlobalCases/SearchInput';
+import { makeStyles } from '@material-ui/core/styles';
+import { List, ListItem, ListItemText, Divider } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { connect } from 'react-redux';
 import './cases.scss'
+
+const useStyles = makeStyles({
+    listItem: {
+        '&>span': {
+            display: 'flex',
+
+        }
+    },
+})
 
 export function CasesContainer({ countries, title, newCases = [], setLocation, setCountry }) {
     const [cases, setCases] = useState(newCases);
@@ -16,6 +26,8 @@ export function CasesContainer({ countries, title, newCases = [], setLocation, s
         typeCountry: 'descending',
         typeCases: 'descending',
     })
+
+    const classes = useStyles();
 
     useEffect(() => {
         if (cases.length === 0) {
@@ -81,22 +93,23 @@ export function CasesContainer({ countries, title, newCases = [], setLocation, s
         }
     }
 
+
     return (
-        <Container className='cases__container'>
+        <section className='cases__container'>
             <SearchInput cases={allCases} setNewCases={setCases} />
             <List className='cases__list'>
                 <h2 className='cases__title'>{title}</h2>
-                <ListItem className='cases__arrows' button>
-                    <ListItemText className='cases__arrow-country arrow' onClick={() => {
-                        handleArrowClick('country',  sortingValue.typeCountry)
+                <ListItem  button>
+                    <ListItemText className={classes.listItem} onClick={() => {
+                        handleArrowClick('country', sortingValue.typeCountry)
                     }}>
-                        {`Sort ${sortingValue.typeCountry}`}
+                        Sort
                         {sortingValue.typeCountry === 'descending' && sortingValue.parameter === 'country' ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
                     </ListItemText>
-                    <ListItemText className='cases__arrow-number arrow' onClick={() => {
+                    <ListItemText className={classes.listItem} onClick={() => {
                         handleArrowClick('cases', sortingValue.typeCases)
                     }}>
-                        {`Sort ${sortingValue.typeCases}`}
+                        Sort
                         {sortingValue.typeCases === 'descending' && sortingValue.parameter === 'cases' ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </ListItemText>
                 </ListItem>
@@ -106,7 +119,7 @@ export function CasesContainer({ countries, title, newCases = [], setLocation, s
                 )
                 )}
             </List>
-        </Container>
+        </section>
     );
 }
 
