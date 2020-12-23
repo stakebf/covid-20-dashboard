@@ -1,3 +1,28 @@
-.appWrapper {
-  
+.app {
+}
+
+.main {
+  &__container {
+    display: grid;
+    grid-template-columns: 15% 60% 25%;
+    
+  }
+}
+
+.tab {
+  &__selected {
+    color: #fefeff;
+    background-color: #153468;
+  }
+}
+
+
+.global {
+  &__container {
+    padding: 0;
+  }
+}
+
+.MuiContainer-root {
+  padding: 0;
 }

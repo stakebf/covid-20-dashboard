@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { Container } from '@material-ui/core';
 import { connect } from 'react-redux';
-
 import GlobalCases from '../Tables/GlobalCases/GlobalCases';
 import CasesContainer from '../Tables/CasesByCity/CasesContainer';
 import Map from '../Tables/Map/MapContainer';
@@ -27,15 +25,21 @@ const AppWrapper = ({ byAllCases, byCountries, activeCountry }) => {
 
   return (
     <main className={classes.main__container}>
-      <AllKindsOfCases />
-      <Charts />
-      <GlobalCases casesType={parameters.globalCases} />
-      <CasesContainer title={parameters.casesSelected} countries={byCountries} />
-      <Container className='map__container'>
-        <GroupedTabs type={'category'} country={activeCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={commonCaregories} />
-        <GroupedTabs type ={'timePeriod'} country={activeCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={timeCategories} />
+      <section className={'global__container'}>
+        <GlobalCases casesType={parameters.globalCases} />
+        <CasesContainer title={parameters.casesSelected} countries={byCountries} />
+      </section>
+
+      <section className='map__container'>
         <Map stat={statisticField} byAllCases={byAllCases} cases={byCountries} pickedCountry={activeCountry} />
-      </Container>
+        <GroupedTabs type={'category'} country={activeCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={commonCaregories} />
+        <GroupedTabs type={'timePeriod'} country={activeCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={timeCategories} />
+      </section>
+      <section className={'allCases__container'}>
+        <AllKindsOfCases />
+        <Charts />
+      </section>
+
     </main>
   );
 };
