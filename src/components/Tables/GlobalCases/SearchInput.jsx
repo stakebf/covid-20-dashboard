@@ -26,10 +26,17 @@ export default function SearchInput({ cases, setNewCases }) {
     );
     setNewCases(results);
   }, [countries, searchTerm, setNewCases]);
-  
+
   return (
     <form className={classes.formContainer} noValidate autoComplete="off">
-      <TextField id="outlined-basic" label="Enter city" variant="outlined" onChange={handleChange} />
+      <TextField id="outlined-basic" label="Enter city" variant="outlined" 
+      onChange={(e) => {
+        handleChange(e)
+      }}
+        onKeyPress={(e) => {
+          if (e.code === 'Enter') e.preventDefault();
+        }
+        } />
     </form>
   );
 }
