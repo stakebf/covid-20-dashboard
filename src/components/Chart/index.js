@@ -24,7 +24,7 @@ const Charts = ({
           byAllCases
         )}
         // width={500}
-        // height={350} 
+        // height={400} 
         options={chartOptions(byHistoricalCountry, activeCountry)}
       />
     </div>
