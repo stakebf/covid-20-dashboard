@@ -52,7 +52,7 @@ const chartOptions = (byHistoricalCountry, activeCountry) => {
       display: true,
       text: [countryName, errorData]
     },
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
     responsive: true
   }
 }
