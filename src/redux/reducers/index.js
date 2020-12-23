@@ -25,7 +25,8 @@ const reducer = (state = initialState, action) => {
     case FETCH_DATA_START:
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: null
       };
     
     case FETCH_DATA_SUCCESS:
