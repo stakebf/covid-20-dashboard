@@ -18,6 +18,7 @@ const Footer = () => {
         rel="noreferrer"
         target="_blank" 
       >
+        stakebf
       </a>
 
       <a 
@@ -26,6 +27,7 @@ const Footer = () => {
         rel="noreferrer"
         target="_blank" 
       >
+        MashaL
       </a>
       <span className={classes.year}>2020</span>
     </footer>
