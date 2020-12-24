@@ -24,7 +24,7 @@ const AllKindsOfCases = ({ activeCountry, byAllCases }) => {
       <h2>Table with confirmed / deaths / recovered cases</h2>
       <List component="div" className={classes.root}>
         <ListItem button>
-          <ListItemText component="span">{countryName}</ListItemText> 
+          <ListItemText className={classes.allCases__item} component="span">{countryName}</ListItemText> 
           <ListItemText component="span">{currentData}</ListItemText>
         </ListItem>
         <Divider />

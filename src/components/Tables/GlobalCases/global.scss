@@ -1,0 +1,30 @@
+.global {
+  &__container.MuiPaper-root {
+    max-width: 275px;
+    background-color: #22212199;
+    grid-row: 1;
+    // grid-column: '1/4';
+    color: #fff3e9;
+    min-height: 110px;
+  }
+  &__title {
+    font-size: 1.5rem;
+    color: red;
+  }
+}
+
+#outlined-basic {
+  color: #fefeff;
+}
+
+@media (max-width: 1024px) {
+  .global {
+    &__container.MuiPaper-root {
+      justify-self: center;
+      max-width: 100%;
+      div {
+        text-align: center;
+      }
+    }
+  }
+}

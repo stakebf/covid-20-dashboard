@@ -31,3 +31,40 @@
 .MuiContainer-root {
   padding: 0;
 }
+
+@media (max-width: 1024px) {
+  .main {
+    &__container {
+      grid-template-columns: 1fr;
+      grid-row-gap: 2%;
+      grid-column-gap: 0;
+      height: 100%;
+      padding: 30px 30px;
+      margin-bottom: 100px;
+    }
+  }
+  .global {
+    &__container {
+      justify-self: center;
+      width: 65vw;
+    }
+  }
+
+  .map {
+      &__tab-container {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+      }
+  }
+
+}
+
+@media (max-width: 1000px) {
+    .map{
+        &__container{
+            width: 85vw;
+            margin: 0 auto;
+        }
+    }
+}
