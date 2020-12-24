@@ -5,11 +5,8 @@ import classes from './MapContainer.module.scss';
 
 const Legend = () => {
     const map = useMap();
-    console.log(map);
-
     useEffect(() => {
         const getColor = num => {
-            console.log(num > 10000, num, '800026')
             return num > 1000000
                 ? "#BD0026"
                 : num > 500000
@@ -46,7 +43,7 @@ const Legend = () => {
         };
 
         legend.addTo(map);
-    }, []);
+    }, [map]);
     return null;
 };
 

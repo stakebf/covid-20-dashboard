@@ -10,11 +10,6 @@ import Charts from '../Chart';
 import classes from './AppWrapper.module.scss';
 
 const AppWrapper = ({ byAllCases, byCountries, activeCountry }) => {
-  const [parameters, setParameters] = useState({
-    globalCases: 'cases',
-    casesSelected: 'Cases by country'
-  });
-
   const [statisticField, setStatisticField] = useState({
     category: 'confirmed',
     timePeriod: 'total'
@@ -26,8 +21,8 @@ const AppWrapper = ({ byAllCases, byCountries, activeCountry }) => {
   return (
     <main className={classes.main__container}>
       <section className={classes.global__container}>
-        <GlobalCases casesType={parameters.globalCases} />
-        <CasesContainer title={parameters.casesSelected} countries={byCountries} />
+        <GlobalCases casesType={'cases'} />
+        <CasesContainer title={'Cases by country'} countries={byCountries} />
       </section>
       <section className={classes.map__container}>
         <Map stat={statisticField} byAllCases={byAllCases} cases={byCountries} pickedCountry={activeCountry} />

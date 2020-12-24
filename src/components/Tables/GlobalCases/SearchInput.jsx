@@ -38,7 +38,7 @@ export default function SearchInput({ cases, setNewCases }) {
 
   useEffect(() => {
     KeyboardView.render(setSearchTerm, searchTerm);
-  }, []);
+  }, [searchTerm]);
 
   return (
     <form className={classes.formContainer} noValidate autoComplete="off">

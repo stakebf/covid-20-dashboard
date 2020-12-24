@@ -16,9 +16,6 @@ const AllKindsOfCases = ({ activeCountry, byAllCases }) => {
 
   const { countryName, currentData} = getInfoAboutCountry(statisticField, activeCountry, byAllCases);
 
-  console.log(activeCountry, 'activeCountry');
-  console.log(statisticField, 'statisticField');
-
   return (
     <section className={classes.table2__container}>
       <h2>Table with confirmed / deaths / recovered cases</h2>

@@ -127,7 +127,7 @@ function Map({ stat, cases, pickedCountry }) {
         useEffect(() => {
             map.flyTo([item.countryInfo.lat, item.countryInfo.long], 5);
             setIsNewLocation(false);
-        }, []);
+        });
 
         return renderCountryMarker(item, stat, null, 10);
     };

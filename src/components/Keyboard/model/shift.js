@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 const specialsSimbolsEN = {
     '0': ')',
     '1': '!',
