@@ -31,7 +31,7 @@ const AppWrapper = ({ byAllCases, byCountries, activeCountry }) => {
         <GroupedTabs styleClass={'mapTab'} type={'timePeriod'} country={activeCountry} setStatisticField={setStatisticField} statisticField={statisticField} tabValues={timeCategories} />
         </div>
       </section>
-      <section className={'allCases__container'}>
+      <section className={classes.allCases__container}>
         <AllKindsOfCases />
         <Charts />
       </section>

@@ -51,20 +51,25 @@
   }
 
   .map {
-      &__tab-container {
-        display: flex;
-        flex-direction: column;
-        align-self: center;
-      }
+    &__tab-container {
+      display: flex;
+      flex-direction: column;
+      align-self: center;
+    }
   }
-
 }
 
 @media (max-width: 1000px) {
-    .map{
-        &__container{
-            width: 85vw;
-            margin: 0 auto;
-        }
+  .map {
+    &__container {
+      width: 85vw;
+      margin: 0 auto;
     }
+  }
+  .allCases {
+    &__container {
+      width: 85vw;
+      margin: 0 auto;
+    }
+  }
 }
