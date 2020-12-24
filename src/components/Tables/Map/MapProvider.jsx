@@ -5,12 +5,6 @@ const MapProvider = () => {
 
     return (
         <LayersControl position="topright">
-            <LayersControl.BaseLayer checked name="OpenStreetMap.Mapnik">
-                <TileLayer
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-            </LayersControl.BaseLayer>
             <LayersControl.BaseLayer name="OpenStreetMap.BlackAndWhite">
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

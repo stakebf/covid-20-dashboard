@@ -13,7 +13,7 @@ const ZOOM = 1.5;
 
 const useStyles = makeStyles({
     mapContainer: {
-        backgroundColor: '#2c2c2c',
+        backgroundColor: '#000',
         margin: '0 auto',
         height: 'calc(100% - 100px)',
         width: '100%',
@@ -137,8 +137,11 @@ function Map({ stat, cases, pickedCountry }) {
             {Object.keys(pickedCountry).length && isNewLocation ? <FlyToLocation position={coords} item={pickedCountry} stat={stat} /> : null}
             <MapProvider />
             <TileLayer
-                attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-                url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+                attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                subdomains='abcd'
+                minZoom='0'
+                maxZoom='20'
+                url="https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png"
             />
             {cases.map((item, idx) => {
                 if (item.provinces !== null) {
