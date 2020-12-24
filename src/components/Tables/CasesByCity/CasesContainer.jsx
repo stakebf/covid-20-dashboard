@@ -8,6 +8,8 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { connect } from 'react-redux';
 import './cases.scss'
+import './mediaCases.scss'
+
 
 const useStyles = makeStyles({
     listItem: {

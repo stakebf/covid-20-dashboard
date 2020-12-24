@@ -1,0 +1,13 @@
+@media (max-width: 1024px) {
+  .cases {
+    &__container {
+      max-width: 100%;
+      width: 100%;
+    }
+    &__list {
+        max-height: 320px;
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+}

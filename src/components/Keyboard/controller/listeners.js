@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import getShiftValue from '../model/shift';
 import toggleCapsLock from '../model/toggleCaps';
 import renderKeyBoard from '../view/renderKeyboardKeys';
@@ -21,13 +22,11 @@ const setFocus = () => {
 }
 
 const listen = (setSearchTerm, searchTerm) => {
-    let shift,
-        keyElements,
+    let keyElements,
         keyboardInput,
         hide;
 
     const init = () => {
-        shift = document.querySelector('.keyboard__key--shift');
         keyElements = document.querySelectorAll(".keyboard__key");
         keyboardInput = document.querySelector('#outlined-basic');
         hide = document.querySelector('.hide_btn');
@@ -212,7 +211,7 @@ const listen = (setSearchTerm, searchTerm) => {
 
     
     const setColor = (elem, elCode) => {
-        return Array.from(keyElements).find((el, idx) => {
+        return Array.from(keyElements).find((el) => {
             if (elem === 'Backspace') {
                 if (el.classList.contains('backspace')) {
                     if (keyboardInput.value.length === 0) return;

@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     borderRadius: '25px',
+    color: '#fefeff',
     '&>label': {
       color: '#fefeff',
     },
@@ -20,11 +21,12 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchInput({ cases, setNewCases }) {
   const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState("");
+  const [placeholder, setPlaceholder] = useState("Enter city");
+
   const countries = cases;
 
   const handleChange = event => {
     setSearchTerm(event.target.value.toLowerCase());
-    console.log(searchTerm, 'searchTerm');
   };
 
   useEffect(() => {
@@ -36,13 +38,16 @@ export default function SearchInput({ cases, setNewCases }) {
 
   useEffect(() => {
     KeyboardView.render(setSearchTerm, searchTerm);
-  }, []);
+  }, [searchTerm]);
 
   return (
     <form className={classes.formContainer} noValidate autoComplete="off">
-      <TextField className={classes.root} id="outlined-basic" label="Enter city" variant="outlined"
+      <TextField className={classes.root} id="outlined-basic" label={placeholder} variant="outlined"
         onChange={(e) => {
           handleChange(e)
+        }}
+        onBlur={()=> {
+          setPlaceholder(searchTerm)
         }}
         onKeyPress={(e) => {
           if (e.code === 'Enter') e.preventDefault();

@@ -45,7 +45,6 @@ const CasesItem = ({ item, cases, country, setActiveCountry, fetchHistorcalDataB
     const handleItemClick = () => {
         setActiveCountry(item);
         fetchHistorcalDataByCountry(item.country);
-        console.log(item, item.country, 'setActiveCountry');
     }
 
     const style = {

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     '&>header': {
       color: '#fefeff',
-      backgroundColor: '#222',
+      backgroundColor: '#22212199',
     },
   },
   tabTableItem: {

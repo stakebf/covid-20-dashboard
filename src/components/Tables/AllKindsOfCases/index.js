@@ -16,15 +16,12 @@ const AllKindsOfCases = ({ activeCountry, byAllCases }) => {
 
   const { countryName, currentData} = getInfoAboutCountry(statisticField, activeCountry, byAllCases);
 
-  console.log(activeCountry, 'activeCountry');
-  console.log(statisticField, 'statisticField');
-
   return (
     <section className={classes.table2__container}>
       <h2>Table with confirmed / deaths / recovered cases</h2>
       <List component="div" className={classes.root}>
         <ListItem button>
-          <ListItemText component="span">{countryName}</ListItemText> 
+          <ListItemText className={classes.allCases__item} component="span">{countryName}</ListItemText> 
           <ListItemText component="span">{currentData}</ListItemText>
         </ListItem>
         <Divider />

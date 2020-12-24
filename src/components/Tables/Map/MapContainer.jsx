@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     mapContainer: {
         backgroundColor: '#2c2c2c',
         margin: '0 auto',
-        height: '80vh',
+        height: 'calc(100% - 100px)',
         width: '100%',
         gridColumn: '2'
     },
@@ -127,7 +127,7 @@ function Map({ stat, cases, pickedCountry }) {
         useEffect(() => {
             map.flyTo([item.countryInfo.lat, item.countryInfo.long], 5);
             setIsNewLocation(false);
-        }, []);
+        });
 
         return renderCountryMarker(item, stat, null, 10);
     };
